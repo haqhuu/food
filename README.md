@@ -15,10 +15,18 @@
 root/mongodb/initdb.sh
 
 
-## 4. Sửa file hosts:
-- Mở file ở đường dẫn: C:\Windows\System32\drivers\etc
-- Sử dụng notepadd mở ở chế độ Administrator
-- Vào thêm dòng: 127.0.0.1 food.local => Lưu lại
-#
-Chạy web mở trình duyệt: food.local
-Chạy kiểm tra api: food.local/api
+## 4. Change file hosts:
+Windows:
+- open: C:\Windows\System32\drivers\etc
+- use notepad as Administrator
+- add content: 127.0.0.1 food.local => save
+##
+Linux:
+- open: /etc
+- use nano as sudo mod
+- add content: 127.0.0.1 food.local => save
+
+# 5. Check init:
+- check api: food.local
+- check web: food.local/api
+- check mongodb at MongoDB Compass

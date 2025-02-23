@@ -28,7 +28,7 @@ services:
       dockerfile: ../docker/api/Dockerfile
     container_name: food-api
     ports:
-      - "8001:8001"
+      - "8002:8002"
     volumes:
       - ../food-api:/usr/src/app
       - /usr/src/app/node_modules
@@ -44,7 +44,7 @@ services:
       dockerfile: ../docker/web/Dockerfile
     container_name: food-web
     ports:
-      - "8002:8002"
+      - "8001:8001"
     volumes:
       - ../food-web:/usr/src/app
       - /usr/src/app/node_modules

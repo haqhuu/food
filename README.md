@@ -19,6 +19,6 @@ root/mongodb/initdb.sh
 - Mở file ở đường dẫn: C:\Windows\System32\drivers\etc
 - Sử dụng notepadd mở ở chế độ Administrator
 - Vào thêm dòng: 127.0.0.1 food.local => Lưu lại
-
+#
 Chạy web mở trình duyệt: food.local
 Chạy kiểm tra api: food.local/api

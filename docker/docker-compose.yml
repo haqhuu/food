@@ -1,0 +1,52 @@
+services:
+  food-nginx:
+    image: nginx:latest
+    container_name: food-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/domains.conf:/etc/nginx/conf.d/domains.conf
+    depends_on:
+      - food-web
+      - food-api
+
+  food-mongodb:
+    image: mongo:latest
+    container_name: food-mongodb
+    ports:
+      - "24017:27017"
+    volumes:
+      - ./mongodb/db:/data/db
+      - ./mongodb/initdb.sh:/root/mongodb/initdb.sh
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+
+  food-api:
+    build:
+      context: ../food-api
+      dockerfile: ../docker/api/Dockerfile
+    container_name: food-api
+    ports:
+      - "8001:8001"
+    volumes:
+      - ../food-api:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - MONGO_URI=mongodb://admin:adminpassword@food-mongodb:27017/food_management
+    depends_on:
+      - food-mongodb
+
+  food-web:
+    build:
+      context: ../food-web
+      dockerfile: ../docker/web/Dockerfile
+    container_name: food-web
+    ports:
+      - "8002:8002"
+    volumes:
+      - ../food-web:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8001

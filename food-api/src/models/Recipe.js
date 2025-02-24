@@ -4,9 +4,12 @@ import IngredientSchema from "./Ingredient.js";
 const RecipeSchema = new mongoose.Schema(
     {
         name: { type: String, required: true },
-        image_url: { type: String },
-        ingredients: { type: String, required: true },
-        instructions: { type: String, required: true }
+        time: { type: String, required: true },
+        energy: { type: String, required: true },
+        imgUrl: { type: String, required: true },
+        description: { type: String, required: true },
+        ingredient: { type: String, required: true },
+        instruction: { type: String, required: true }
     },
     { timestamps: true }
 );

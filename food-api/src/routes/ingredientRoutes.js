@@ -7,8 +7,8 @@ import {
 
 const router = Router();
 
-
-router.route("/ingredients").get(getIngredients);
-router.route("/ingredients/:name").post(createOrUpdateIngredient);
+router.route("/ingredients/:name").get(getIngredient);
+router.route("/ingredients").get(getIngredients)
+    .post(createOrUpdateIngredient);
 
 export default router;

@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import routes from "./index";
 import NotFound from "../pages/NotFound";
+import { ToastContainer } from 'react-toastify';
 
 const Loading = () => (
     <div className="loading">Loading...</div>
@@ -22,6 +23,7 @@ const RouteLoader = () => (
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </Suspense>
+        <ToastContainer />
     </Router>
 );
 

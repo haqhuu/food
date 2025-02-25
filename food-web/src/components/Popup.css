@@ -1,0 +1,32 @@
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 95%;
+    max-height: 90vh;
+    /* Enables scrolling when content overflows */
+    overflow-y: auto;
+    text-align: left;
+}
+
+button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.popup-content {
+    overflow-y: scroll;
+}

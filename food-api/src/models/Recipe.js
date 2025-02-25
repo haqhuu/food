@@ -8,8 +8,8 @@ const RecipeSchema = new mongoose.Schema(
         energy: { type: String, required: true },
         imgUrl: { type: String, required: true },
         description: { type: String, required: true },
-        ingredient: { type: String, required: true },
-        instruction: { type: String, required: true }
+        ingredient: [{ type: mongoose.Schema.Types.ObjectId, ref: "Ingredient" }],
+        instruction: [{ type: String, required: true }]
     },
     { timestamps: true }
 );

@@ -6,7 +6,6 @@ import '../styles/Footer.css'
 import Menu from "./Menu.jsx";
 import { Link } from "react-router-dom";
 
-
 function Footer() {
     return (
         <>

@@ -1,0 +1,31 @@
+{
+    "_id": ObjectId,
+    "name": "Spaghetti Bolognese",
+    "imageUrl": "https://example.com/spaghetti.jpg",
+    "ingredients": [
+        {
+            "ingredient_id": ObjectId,
+            "amount": 200,
+            "unit": "gram",
+            "alternatives": [
+                {
+                    "ingredient_id": ObjectId,
+                    "amount": 150,
+                    "unit": "gram"
+                }
+            ]
+        }
+    ],
+    "instructions": [
+        {
+            "step": 1,
+            "description": "Boil water in a large pot.",
+            "url": "https://example.com/boiling-water"
+        },
+        {
+            "step": 2,
+            "description": "Add spaghetti and cook for 10 minutes.",
+            "url": null
+        }
+    ]
+}

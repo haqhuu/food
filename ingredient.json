@@ -1,0 +1,18 @@
+{
+    "_id": ObjectId,
+    "names": [
+        "tomato",
+        "red tomato"
+    ],
+    "imageUrl": "https://example.com/tomato.jpg",
+    "units": [
+        "gram",
+        "piece",
+        "cup"
+    ],
+    "nutritional_info": {
+        "calories": 18,
+        "protein_g": 0.9,
+        "carbs_g": 3.9
+    }
+}

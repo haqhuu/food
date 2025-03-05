@@ -1,18 +1,17 @@
 {
-    "_id": ObjectId,
-    "names": [
-        "tomato",
-        "red tomato"
+    "_id": "1",
+    "canonical_name": "tomato",
+    "aliases": [
+        "pomodoro",
+        "tamatar"
     ],
-    "imageUrl": "https://example.com/tomato.jpg",
-    "units": [
-        "gram",
-        "piece",
-        "cup"
-    ],
-    "nutritional_info": {
+    "category": "vegetable",
+    "image_url": "https://example.com/tomato.jpg",
+    "nutrition": {
         "calories": 18,
-        "protein_g": 0.9,
-        "carbs_g": 3.9
-    }
+        "protein": 0.9,
+        "fat": 0.2,
+        "carbs": 3.9
+    },
+    "created_at": ""
 }

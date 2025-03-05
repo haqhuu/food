@@ -4,9 +4,14 @@ import { useState } from "react";
 import axios from "../../setup/axios.jsx";
 import { toast } from "react-toastify";
 
+
+const cleanString = (str) => {
+    return str.trim().replace(/\s*[,\.]+$/, '').replace(/^[,\.]+\s*/, '').replace(/,\s*,/g, ',');
+}
+
 const Index = () => {
     const [name, setName] = useState("");
-    const [unit, setUnit] = useState("");
+    const [aliases, setAliases] = useState("");
     const [imgUrl, setImgUrl] = useState("");
     const [invalidObject, setInvalidObject] = useState({
         invalidName: false,
@@ -24,9 +29,8 @@ const Index = () => {
             setInvalidObject({ ...invalidObject, invalidImgUrl: true });
             return true;
         }
-
-        if (!unit) {
-            setInvalidObject({ ...invalidObject, invalidUnit: true });
+        if (!aliases) {
+            setInvalidObject({ ...invalidObject, invalidImgUrl: true });
             return true;
         }
 
@@ -37,9 +41,11 @@ const Index = () => {
 
         if (!checkInValidInput()) {
             try {
+                const str = cleanString(aliases);
                 const payload = {
-                    name: name.split(","),
-                    unit: unit,
+                    name: name,
+                    aliases: str.split(",").map(it => it.trim())
+                    ,
                     imgUrl: imgUrl
                 }
                 console.log(payload);
@@ -51,11 +57,6 @@ const Index = () => {
         }
         else {
             toast.error("Empty field");
-            // setInvalidObject({
-            //     invalidName: false,
-            //     invalidUnit: false,
-            //     invalidImgUrl: false,
-            // });
         }
     }
 
@@ -71,7 +72,7 @@ const Index = () => {
                 <input className={invalidObject.invalidImgUrl ? "form-control" : "form-control"}
                     type="text" placeholder="Paste link image ingredient" value={imgUrl} onChange={(e) => setImgUrl(e.target.value)} />
                 <input className={invalidObject.invalidUnit ? "form-control" : "form-control"}
-                    type="text" placeholder="unit ingredient" value={unit} onChange={(e) => setUnit(e.target.value)} />
+                    type="text" placeholder="aliases ingredient separate by (,)" value={aliases} onChange={(e) => setAliases(e.target.value)} />
                 <div className=" d-flex flex-row justify-content-between">
                     <button className="btn btn-success w-25" onClick={() => handleAddOne()}>
                         Add

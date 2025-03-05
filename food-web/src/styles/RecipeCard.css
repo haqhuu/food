@@ -4,7 +4,7 @@
     border-radius: 5px;
     /* margin: 0.5rem; */
     padding: 1rem;
-    background: rgb(255, 241, 241);
+    background: rgb(242, 242, 242);
     border: 1px solid silver;
     gap: 1rem;
     ;
@@ -23,4 +23,9 @@
     color: #000000;
     font-size: 20px;
     font-weight: 700;
+}
+
+.recipe-container:hover {
+    cursor: pointer;
+    background: rgb(226, 226, 226);
 }

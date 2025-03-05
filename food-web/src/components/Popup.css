@@ -8,25 +8,96 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10;
 }
 
 .popup-content {
     background: white;
-    padding: 2rem;
+    /* padding: 2rem; */
     border-radius: 8px;
-    width: 95%;
+    width: 75%;
     max-height: 90vh;
     /* Enables scrolling when content overflows */
     overflow-y: auto;
     text-align: left;
+    position: absolute;
+    top: 0;
+    margin-top: 1rem;
+    z-index: 10;
 }
 
-button {
-    margin-top: 10px;
-    padding: 8px 12px;
-    cursor: pointer;
-}
 
 .popup-content {
     overflow-y: scroll;
+    scrollbar-width: none;
 }
+
+.header-popup {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    width: inherit;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid silver;
+    position: fixed;
+    background: white;
+    padding: 1rem;
+    z-index: 11;
+}
+
+h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.main-popup {
+    margin: 1.5lh 0;
+    padding: 3rem 1rem;
+}
+
+.intro-popup {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.attribute-content {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.right-popup-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.bottom-popup-content {
+    display: flex;
+    gap: 1rem;
+}
+
+.ing-content {
+    width: 25%;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.ins-content {
+    gap: 1rem;
+
+    width: 75%;
+    flex-wrap: wrap;
+}
+
+.img-recipe {
+    display: flex;
+    justify-content: center;
+    /* align-items: ; */
+}
+
+.ing-item {}

@@ -41,10 +41,12 @@ const Index = () => {
                     imgUrl: imgUrl,
                     time: time,
                     energy: energy,
-                    ingredient: ingredient,
+                    ingredients: ingredient,
                     description: description,
-                    instruction: instruction
+                    instructions: instruction
                 }
+                console.log("pl: ", payload);
+
                 const response = await axios.post("/recipes", payload);
                 console.log("aa", response);
             } catch (e) {
@@ -53,11 +55,6 @@ const Index = () => {
         }
         else {
             toast.error("Empty field");
-            // setInvalidObject({
-            //     invalidName: false,
-            //     invalidUnit: false,
-            //     invalidImgUrl: false,
-            // });
         }
     }
 

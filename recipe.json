@@ -1,31 +1,52 @@
 {
-    "_id": ObjectId,
-    "name": "Spaghetti Bolognese",
-    "imageUrl": "https://example.com/spaghetti.jpg",
+    "_id": "1",
+    "name": "Tomato Soup",
+    "images": [
+        "https://example.com/soup.jpg"
+    ],
     "ingredients": [
         {
-            "ingredient_id": ObjectId,
-            "amount": 200,
-            "unit": "gram",
-            "alternatives": [
+            "name": "tomato",
+            "quantity": 4,
+            "unit": "whole",
+            "substitutions": [
                 {
-                    "ingredient_id": ObjectId,
-                    "amount": 150,
-                    "unit": "gram"
+                    "name": "canned tomatoes",
+                    "quantity": 1,
+                    "unit": "can"
                 }
             ]
+        },
+        {
+            "name": "onion",
+            "quantity": 1,
+            "unit": "whole"
+        },
+        {
+            "name": "salt",
+            "unit": "pinch"
         }
     ],
     "instructions": [
         {
-            "step": 1,
-            "description": "Boil water in a large pot.",
-            "url": "https://example.com/boiling-water"
+            "step_number": 1,
+            "text": "Chop the tomatoes and onion",
+            "time_minutes": 5
         },
         {
-            "step": 2,
-            "description": "Add spaghetti and cook for 10 minutes.",
-            "url": null
+            "step_number": 2,
+            "text": "Simmer with water and salt",
+            "time_minutes": 20
         }
-    ]
+    ],
+    "tags": [
+        "vegan",
+        "soup"
+    ],
+    "origin": "Generic",
+    "created_at": "",
+    "ratings": {
+        "average": 0,
+        "count": 0
+    }
 }

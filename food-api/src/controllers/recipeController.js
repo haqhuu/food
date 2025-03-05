@@ -1,20 +1,41 @@
 import Recipe from "../models/Recipe.js";
+import Ingredient from "../models/Ingredient.js";
+import mongoose from "mongoose";
 
-export const getRecipe = async (req, res) => {
+export const createOrUpdateRecipe = async (req, res) => {
     try {
-        const { name } = req.params;
-        const recipe = await Recipe.find({ name: { $in: [new RegExp(name, 'i')] } });
-        return res.status(200).json(recipe);
+        console.log(req.body);
+        // const ingredientsJS = JSON.parse(req.body.ingredients);
+        const instructions = JSON.parse(req.body.instructions);
+        const ingredients = JSON.parse(req.body.ingredients);
+        console.log("reqbody", req.body);
+        console.log("lllllllyyyylllllllll");
+
+        // Tạo Recipe mới với các ingredient đã chuyển đổi sang ObjectId
+        const recipe = new Recipe({
+            name: req.body.name,
+            imgUrl: req.body.imgUrl,
+            ingredients: ingredients,
+            instructions: instructions
+        });
+
+        const result = await recipe.save();
+
+        console.log("results:", result);
+        return res.status(200).json({
+            "message": "Recipe created successfully",
+            result
+        });
     } catch (e) {
         console.log(e);
         return res.status(500).json({ message: "server is broken" });
     }
-}
+};
 
 export const getRecipes = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
-        const pageSize = parseInt(req.query.pageSize) || 10;  // Số item mỗi trang (mặc định: 10)
+        const pageSize = parseInt(req.query.pageSize) || 50;  // Số item mỗi trang (mặc định: 10)
         const skip = (page - 1) * pageSize; // Tính số bản ghi cần bỏ qua
 
         const result = await Recipe.aggregate([
@@ -50,117 +71,171 @@ export const getRecipes = async (req, res) => {
     }
 }
 
-export const createOrUpdateRecipe = async (req, res) => {
-    try {
-        const { name, time, imgUrl, energy, ingredient, description, instruction } = req.body;
-        console.log(name, "|", "|", imgUrl);
-        const response = await Recipe.findOneAndUpdate({ name: name },
-            { time, imgUrl, energy, ingredient, description, instruction },
-            { new: true, upsert: true }
-        );
-        console.log(response);
 
-        return res.status(200).json(response);
-    } catch (e) {
-        console.log(e);
-        return res.status(500).json({ message: "server is broken" });
-    }
-}
+// export const createOrUpdateRecipe = async (req, res) => {
+//     try {
+//         const { name, time, imgUrl, energy, ingredient, description, instruction } = req.body;
+//         console.log(name, "|", "|", imgUrl);
+//         const response = await Recipe.findOneAndUpdate({ name: name },
+//             { time, imgUrl, energy, ingredient, description, instruction },
+//             { new: true, upsert: true }
+//         );
+//         console.log(response);
 
-function countOccurrences(a, b) {
-    const regex = new RegExp(a.join('|'), 'gi'); // Create a regex pattern from array elements
-    const matches = b.match(regex); // Find all matches in string b
-    return matches ? matches.length : 0; // Return count, handling null case
-}
+//         return res.status(200).json(response);
+//     } catch (e) {
+//         console.log(e);
+//         return res.status(500).json({ message: "server is broken" });
+//     }
+// }
+
 
 export const searchRecipes = async (req, res) => {
     try {
-        // const ingredients = req.body; // Mảng nguyên liệu từ client
-        // console.log(ingredients);
-        // const page = parseInt(req.query.page) || 1;  // Trang hiện tại
-        // const pageSize = parseInt(req.query.pageSize) || 10; // Số bản ghi mỗi trang
-        // const skip = (page - 1) * pageSize;
+        let inputArray = req.body.ingredients;
+        console.log("req: ", req.body);
+        // Nếu không có inputArray, trả về kết quả rỗng
+        if (!inputArray) {
+            return res.status(200).json({
+                recipes: [],
+                totalRecords: 0,
+                totalPages: 0,
+                currentPage: 1,
+                pageSize: 10
+            });
+        }
 
-        // const result = await Recipe.aggregate([
-        //     // 🟢 1. Chuyển `ingredient` từ string -> array bằng `$split`
-        //     {
-        //         $addFields: {
-        //             ingredientArray: {
-        //                 $cond: {
-        //                     if: { $eq: [{ $type: "$ingredient" }, "string"] },
-        //                     then: { $split: ["$ingredient", "|"] }, // ✅ Tách chuỗi thành mảng
-        //                     else: "$ingredient" // ✅ Nếu đã là mảng thì giữ nguyên
-        //                 }
-        //             }
-        //         }
-        //     },
-        //     // 🟢 1. Tính tần suất xuất hiện của nguyên liệu trong mỗi công thức
-        //     {
-        //         $addFields: {
-        //             freq: {
-        //                 $size: {
-        //                     $ifNull: [
-        //                         { $setIntersection: ["$ingredientArray", ingredients] },
-        //                         [] // ✅ Tránh lỗi `null`
-        //                     ]
-        //                 }
-        //             }
-        //         }
-        //     },
-        //     // 🟢 2. Chỉ lấy các công thức có `freq > 0` (công thức có ít nhất 1 nguyên liệu)
-        //     {
-        //         $match: { freq: { $gt: 0 } }
-        //     },
-        //     // 🟢 3. Sắp xếp theo `freq` giảm dần
-        //     {
-        //         $sort: { freq: -1 }
-        //     },
-        //     // 🟢 4. Phân trang: Bỏ qua và lấy đúng số lượng bản ghi
-        //     {
-        //         $skip: skip
-        //     },
-        //     {
-        //         $limit: pageSize
-        //     },
-        //     // 🟢 5. (Tuỳ chọn) Lấy tổng số bản ghi để tính số trang
-        //     {
-        //         $facet: {
-        //             metadata: [{ $count: "total" }],
-        //             data: [{ $skip: skip }, { $limit: pageSize }]
-        //         }
-        //     }
+        // Nếu inputArray không phải mảng, chuyển thành mảng
+        if (!Array.isArray(inputArray)) {
+            inputArray = [inputArray];
+        }
 
-        // ]);
+        // Kiểm tra từng phần tử trong inputArray phải là chuỗi
+        for (const term of inputArray) {
+            if (typeof term !== "string") {
+                return res.status(400).json({
+                    message: `Each term in inputArray must be a string, but received ${typeof term}: ${term}`
+                });
+            }
+        }
 
-        // console.log(result);
-        // // 🟢 6. Xử lý kết quả trả về
-        // const total = result[0].metadata[0]?.total || 0;
-        // const recipes = result[0].data;
+        // Lấy page và pageSize từ req.body, mặc định là 1 và 10
+        const page = Number(req.body.page) || 1;
+        const pageSize = Number(req.body.pageSize) || 10;
 
-        // return res.status(200).json({
-        //     total,
-        //     totalPages: Math.ceil(total / pageSize),
-        //     currentPage: page,
-        //     pageSize,
-        //     recipes
-        // });
+        // Giải quyết từng đầu vào thành danh sách tên chuẩn từ Ingredient
+        const resolvedLists = await Promise.all(
+            inputArray.map(async (term) => {
+                const regex = new RegExp(term, "i"); // Không phân biệt hoa thường, không xử lý dấu tiếng Việt
+                const ingredients = await Ingredient.find(
+                    {
+                        $or: [
+                            { name: { $regex: regex } },
+                            { aliases: { $elemMatch: { $regex: regex } } }
+                        ]
+                    },
+                    { name: 1 }
+                );
+                return ingredients.map((ing) => ing.name);
+            })
+        );
 
-        const ingredients = req.body;
-        console.log(ingredients);
-        const allRecipes = await Recipe.find().lean();; // ✅ Use `.lean()` to convert Mongoose documents to plain objects
-        allRecipes.forEach(it => {
-            it.freq = 0; // Initialize frequency to 0
+        // Nếu không có danh sách nào được giải quyết, trả về rỗng
+        if (resolvedLists.every((list) => list.length === 0)) {
+            return res.status(200).json({
+                recipes: [],
+                totalRecords: 0,
+                totalPages: 0,
+                currentPage: page,
+                pageSize: pageSize
+            });
+        }
+
+        // Xây dựng pipeline để tìm kiếm và tính điểm
+        const pipeline = [];
+        let fieldCount = 0;
+
+        // Tính điểm khớp cho từng danh sách đã giải quyết
+        for (const list of resolvedLists) {
+            if (list.length > 0) {
+                fieldCount++;
+                pipeline.push({
+                    $addFields: {
+                        [`count${fieldCount}`]: {
+                            $size: {
+                                $filter: {
+                                    input: {
+                                        $map: {
+                                            input: { $ifNull: ["$ingredients", []] },
+                                            as: "ing",
+                                            in: "$$ing.name"
+                                        }
+                                    },
+                                    as: "ingName",
+                                    cond: { $in: ["$$ingName", list] }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Nếu không có danh sách nào hợp lệ, trả về rỗng
+        if (fieldCount === 0) {
+            return res.status(200).json({
+                recipes: [],
+                totalRecords: 0,
+                totalPages: 0,
+                currentPage: page,
+                pageSize: pageSize
+            });
+        }
+
+        // Tính tổng điểm liên quan
+        const sumFields = Array.from({ length: fieldCount }, (_, i) => `$count${i + 1}`);
+        pipeline.push({
+            $addFields: {
+                total_relevance: { $sum: sumFields }
+            }
         });
-        allRecipes.forEach(it => {
-            const fre = countOccurrences(ingredients, it.ingredient);
-            it.freq += fre;
+
+        // Xóa các trường count tạm thời
+        const unsetFields = sumFields.map((field) => field.replace("$", ""));
+        pipeline.push({
+            $unset: unsetFields
         });
 
-        allRecipes.sort((a, b) => b.freq - a.freq);
+        // Lọc các công thức có điểm lớn hơn 0
+        pipeline.push({ $match: { total_relevance: { $gt: 0 } } });
 
-        return res.status(200).json(allRecipes);
+        // Đếm tổng số bản ghi trước khi phân trang
+        const countPipeline = [...pipeline, { $count: "totalRecords" }];
+        const countResult = await Recipe.aggregate(countPipeline);
+        const totalRecords = countResult.length > 0 ? countResult[0].totalRecords : 0;
+        const totalPages = Math.ceil(totalRecords / pageSize);
+
+        // Sắp xếp và phân trang
+        pipeline.push({ $sort: { total_relevance: -1, createdAt: -1 } });
+        pipeline.push({ $skip: (page - 1) * pageSize });
+        pipeline.push({ $limit: pageSize });
+
+        // Thực thi pipeline để lấy danh sách công thức
+        const recipes = await Recipe.aggregate(pipeline);
+        console.log("res: ", recipes);
+        console.log("total: re: ", totalRecords);
+        console.log("total: pgs: ", totalPages);
+
+        // Trả về kết quả
+        return res.status(200).json({
+            recipes,
+            totalRecords,
+            totalPages,
+            currentPage: page,
+            pageSize
+        });
     } catch (e) {
-        console.log(e);
-        return res.status(500).json({ message: "server is broken" });
+        console.error("Error in searchRecipes:", e);
+        return res.status(500).json({ message: "Server error occurred" });
     }
 };

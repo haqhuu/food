@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Ingredient from "../models/Ingredient.js";
 
 const connectDB = async () => {
     try {
@@ -8,6 +9,20 @@ const connectDB = async () => {
             dbName: process.env.DB_DATABASE,
             authSource: process.env.DB_AUTHENTICATION_DATABASE
         });
+
+
+        console.log(`
+
+        ______  _   _  _   __ _____ 
+        |  ___|| | | || | / /|  ___|
+        | |_   | | | || |/ / | |__  
+        |  _|  | | | ||    \ |  __| 
+        | |    | |_| || |\  \| |___ 
+         \_|     \___/ \_| \_/\____/ 
+                                    
+`);
+
+
         console.log("✅ MongoDB connected successfully!");
     } catch (error) {
         console.error("❌ MongoDB connection error:", error.message);

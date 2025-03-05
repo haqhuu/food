@@ -8,56 +8,101 @@ import { Link } from "react-router-dom";
 import RecipeCard from "../components/RecipeCard.jsx";
 import Footer from "../components/Footer.jsx";
 import IngredientForm from "../components/IngredientForm.jsx";
+import Pagination from '../components/Pagination.jsx';
+import Header from '../components/Header.jsx';
+
+const pageSize = 10;
 
 function Index() {
+    const [searching, setSearching] = useState(false);
     const [recipes, setRecipes] = useState([""]);
     const [count, setCount] = useState(0);
     const [total, setTotal] = useState(0);
+    const [totalPages, setTotalPages] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const getAllrecipes = async () => {
-        const response = await axios.get("/recipes");
+        const query = { page: currentPage, pageSize: pageSize }
+
+        const response = await axios.get("/recipes", { params: query });
         setTotal(response.total);
-        // setCount(response.length);
+        // setTotalPages(5);
+
+        setTotalPages(response.totalPages);
+        setCurrentPage(response.currentPage);
+        setCount(response.recipes.length);
         setRecipes(response.recipes);
-        console.log(response);
+        // console.log(
+        //     "recipes::", response
+        // );
     }
 
     useEffect(() => {
-        getAllrecipes();
-    }, []);
+        console.log("searching", searching);
+        if (!searching) {
+            getAllrecipes();
+        }
+    }, [currentPage, searching]);
+
+    useEffect(() => {
+        setCurrentPage(1);
+
+    }, [totalPages]);
+    // useEffect(() => {
+    // setCurrentPage(1);
+    // }, [pageSize]);
 
     return (
         <>
             <Menu />
-            <Link to="/" >
-                <img src={"https://storage.needpix.com/rsynced_images/chef-29205_1280.png"} className="logo" alt="Logo" />
-            </Link>
+            <div className="head-section w-100 d-flex flex-row">
+                <Header />
+                <IngredientForm
+                    searching={searching}
+                    pageSize={pageSize}
+                    currentPage={currentPage}
+                    setRecipes={setRecipes}
+                    setCount={setCount}
+                    setSearching={setSearching}
+                    setTotalPages={setTotalPages}
+                    setTotal={setTotal}
+                    setCurrentPage={setCurrentPage}
+                    getAll={getAllrecipes}
+                />
 
-            <IngredientForm
-                setRecipes={setRecipes}
-                setCount={setCount}
-            />
+            </div>
 
             <hr />
-            <div className="recipes-container">
-                <span className='count'>Result: {count} of {total} recipe(s)</span>
-                {
-                    recipes && recipes.length > 0 && recipes.map(it => {
-                        console.log(recipes);
-                        return <RecipeCard
-                            key={it._id}
-                            name={it.name}
-                            id={it._id}
-                            imgUrl={it.imgUrl}
-                            time={it.time}
-                            energy={it.energy}
-                            ingredient={it.ingredient}
-                            description={it.description}
-                            instruction={it.instruction}
-                        />
-                    })
-                }
-            </div>
+            {
+                <div className="recipes-container ">
+                    <span className='count'>
+                        {/* {count} of  */}
+                        {total} recipe(s)</span>
+                    {
+                        recipes && recipes.length > 0 && recipes.map(it => {
+                            return <RecipeCard
+                                key={it._id}
+                                name={it.name}
+                                imgUrl={it.imgUrl}
+                                time={it.time}
+                                timeUnit={it.timeUnit}
+                                energy={it.energy}
+                                energyUnit={it.energyUnit}
+                                ingredients={it.ingredients}
+                                description={it.description}
+                                instructions={it.instructions}
+                            />
+                        })
+                    }
+                </div>
+            }
+
+            <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                setTotalPages={setTotalPages}
+            />
             <Footer />
         </>
     )

@@ -1,13 +1,13 @@
 #root {
-    /* max-width: 500px; */
-    margin: 0 auto;
-    padding: 0.5rem;
+    /* max-width: 80%; */
+    /* margin: 0 auto; */
+    padding: 0;
     text-align: center;
-    width: 1280px;
+    width: 75%;
 }
 
 .logo {
-    height: 6em;
+    height: 10em;
     padding: 0.5rem;
     will-change: filter;
     transition: filter 300ms;
@@ -43,4 +43,8 @@
 
 .read-the-docs {
     color: #888;
+}
+
+.recipes-container {
+    min-height: 500px;
 }

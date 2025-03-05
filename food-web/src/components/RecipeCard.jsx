@@ -13,6 +13,9 @@ function RecipeCard(props) {
     const handleOnClickIt = (e) => {
         console.log(e.target.value);
     }
+    useEffect(() => {
+
+    }, [isPopupOpen]);
 
     return (
         <>
@@ -20,14 +23,15 @@ function RecipeCard(props) {
                 <img src={props.imgUrl} style={{ width: "100px", height: "100px" }} alt={props.imgUrl} />
                 <div className='intro'>
                     <span className='name'>{props.name}</span>
-                    <span>🗲__ : {props.energy}</span>
-                    <span>⏲_ : {props.time}</span>
+                    <span>🗲__ : {props.energy} {props.energyUnit}</span>
+                    <span>⏲_ : {props.time} {props.timeUnit}</span>
                 </div>
-                {isPopupOpen && <Popup
-                    props={props}
-                    onClose={() => setPopupOpen(false)}
-                />}
+
             </div>
+            {isPopupOpen && <Popup
+                props={props}
+                onClose={() => setPopupOpen(false)}
+            />}
         </>
     );
 }

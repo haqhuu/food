@@ -1,0 +1,17 @@
+.pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.page-item {
+    cursor: pointer;
+}
+
+li a:hover {
+    background: #cccccc !important;
+}
+
+.li-item {
+    cursor: pointer;
+}

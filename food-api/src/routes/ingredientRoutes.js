@@ -1,14 +1,15 @@
 import { Router } from "express";
 import {
-    getIngredient,
+    // getIngredient,
     getIngredients,
-    createOrUpdateIngredient
+    createIngredient
 } from "../controllers/ingredientController.js";
 
 const router = Router();
 
-router.route("/ingredients/:name").get(getIngredient);
-router.route("/ingredients").get(getIngredients)
-    .post(createOrUpdateIngredient);
+// router.route("/ingredients/:name").get(getIngredient);
+router.route("/ingredients")
+    .get(getIngredients)
+    .post(createIngredient);
 
 export default router;

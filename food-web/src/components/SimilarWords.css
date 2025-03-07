@@ -1,0 +1,33 @@
+.similar-wrords-container .similar-content {
+    padding-top: 1rem;
+
+    padding-bottom: 2rem;
+    display: flex;
+    /* flex-direction: row; */
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.similar-wrords-container {
+    min-height: 100px;
+    border-bottom: 1px solid silver;
+    gap: 1rem;
+    padding: 1rem;
+    ;
+}
+
+.bound {
+    border: 1px solid rgb(243, 243, 243);
+    background: white;
+    border-radius: 7px;
+
+}
+
+.similar-wrords-container .similar-title {
+    padding-bottom: 2rem;
+    height: 2lh;
+}
+
+.similar-item {
+    padding: 1px;
+}

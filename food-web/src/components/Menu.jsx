@@ -4,7 +4,7 @@ import routes from "../routes";
 
 const Menu = () => {
     return (
-        <nav className="menu">
+        <nav className="menu d-none">
             <ul>
                 {routes.filter(route => !route.meta.isDynamic && route.name !== "NotFound" && !route.meta.isIndex).map((route) => (
                     <li key={route.path}>

@@ -2,13 +2,12 @@
 import { useEffect, useState } from "react";
 import axios from "../setup/axios.jsx";
 import "./IngredientForm.css";
+import { useForm } from "../context/FormContext.jsx";
 
-// const data = ["Apple", "Banana", "Cherry", "Date", "Grape", "Mango", "Orange", "Pineapple", "Strawberry"];
-// let data = [];
 const limitIngredients = 7;
 
 function IngredientForm({ searching, pageSize, currentPage, setRecipes, setCount, setSearching, setTotalPages, setTotal, setCurrentPage, getAll }) {
-    const [ingredients, setIngredients] = useState([""]); // Initial ingredient
+    const { ingredients, setIngredients } = useForm();
     const [activeIndex, setActiveIndex] = useState(""); // Track which input is active
     const [suggestions, setSuggestions] = useState([]);
 
@@ -22,7 +21,7 @@ function IngredientForm({ searching, pageSize, currentPage, setRecipes, setCount
 
     const getIngredients = async (query) => {
         try {
-            console.log("ing queryp: ", query);
+            // console.log("ing queryp: ", query);
             if (query) {
                 const response = await axios.get("/ingredients",
                     {
@@ -58,9 +57,7 @@ function IngredientForm({ searching, pageSize, currentPage, setRecipes, setCount
         }
     }, [currentPage,]);
 
-    // useEffect(() => {
 
-    // }, [suggestions]);
     useEffect(() => {
         getIngredients(ingredients[activeIndex]);
     }, [activeIndex]);
@@ -120,6 +117,17 @@ function IngredientForm({ searching, pageSize, currentPage, setRecipes, setCount
 
     return (
         <div className="search-container  ">
+            <b className="filter-title">
+                Filter
+            </b>
+            <div className="filter-title-container">
+                <b className="title-filter-recipe">In Recipe: {ingredients.length}/{limitIngredients}</b>
+                <button
+                    className='btn btn-secondary ing-btn'
+                    onClick={() => clearIngredients()}>
+                    Reset
+                </button>
+            </div>
             <div className="ing-container ">
                 {ingredients.map((ingredient, index) => (
                     <div key={index} className="ing-item ">
@@ -166,12 +174,6 @@ function IngredientForm({ searching, pageSize, currentPage, setRecipes, setCount
                         : ""
                 }
             </div>
-            <button
-                className='btn btn-secondary ing-btn'
-                onClick={() => clearIngredients()}>
-                Reset search
-            </button>
-            {/* <button className='btn btn-white ing-btn' onClick={handleOnClickSearch}> 🔎 </button> */}
         </div>
     );
 }

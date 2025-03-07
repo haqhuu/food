@@ -239,3 +239,30 @@ export const searchRecipes = async (req, res) => {
         return res.status(500).json({ message: "Server error occurred" });
     }
 };
+
+export const searchName = async (req, res) => {
+    try {
+        console.log("ri:", req.query.query);
+
+        if (!req.query) {
+            return res.status(200).json({
+                "message": "ok get some name recipes",
+                result: []
+            });
+        }
+        // const regex = new RegExp(req.query, "i");
+        const result = await Recipe.find(
+            {
+                name: new RegExp(req.query.query, 'i')
+            },
+            {}
+        ).limit(7);
+        return res.status(200).json({
+            "message": "ok get some name recipes",
+            result
+        });
+    } catch (e) {
+        console.log("error searchName: ", e);
+        return res.status(500).json({ message: "server is broken" });
+    }
+}

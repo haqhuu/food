@@ -101,3 +101,12 @@ h2 {
 }
 
 .ing-item {}
+
+.attribute-content-popup {
+    font-weight: 600;
+}
+
+.ic {
+    width: 2rem;
+    height: 2rem;
+}

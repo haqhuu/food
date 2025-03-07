@@ -3,19 +3,20 @@
     /* margin: 0 auto; */
     padding: 0;
     text-align: center;
-    width: 75%;
+    width: 100%;
+    height: 100%;
 }
 
-.logo {
+/* .logo {
     height: 10em;
     padding: 0.5rem;
     will-change: filter;
     transition: filter 300ms;
-}
+} */
 
-.logo:hover {
+/* .logo:hover {
     filter: drop-shadow(0 0 2em #646cffaa);
-}
+} */
 
 .logo.react:hover {
     filter: drop-shadow(0 0 2em #61dafbaa);
@@ -46,5 +47,18 @@
 }
 
 .recipes-container {
-    min-height: 500px;
+    min-height: 600px;
+}
+
+.red {
+    border: 1px solid red;
+}
+
+.middle-container {
+    align-items: flex-end;
+    justify-content: end;
+}
+
+.gr {
+    background: rgb(243, 243, 243);
 }

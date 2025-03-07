@@ -10,16 +10,22 @@ import Footer from "../components/Footer.jsx";
 import IngredientForm from "../components/IngredientForm.jsx";
 import Pagination from '../components/Pagination.jsx';
 import Header from '../components/Header.jsx';
+import SearchName from "../components/SearchName.jsx";
+import SimilarWords from "../components/SimilarWords.jsx";
+import { FormProvider } from '../context/FormContext.jsx';
+import { RecipesProvider } from '../context/RecipesContext.jsx';
 
-const pageSize = 10;
+const pageSize = 4;
 
 function Index() {
-    const [searching, setSearching] = useState(false);
     const [recipes, setRecipes] = useState([""]);
+
+    const [searching, setSearching] = useState(false);
     const [count, setCount] = useState(0);
     const [total, setTotal] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
+    const [openSide, setOpenSide] = useState(true);
 
     const getAllrecipes = async () => {
         const query = { page: currentPage, pageSize: pageSize }
@@ -46,64 +52,139 @@ function Index() {
 
     useEffect(() => {
         setCurrentPage(1);
-
     }, [totalPages]);
-    // useEffect(() => {
-    // setCurrentPage(1);
-    // }, [pageSize]);
+
 
     return (
         <>
             <Menu />
-            <div className="head-section w-100 d-flex flex-row">
-                <Header />
-                <IngredientForm
-                    searching={searching}
-                    pageSize={pageSize}
-                    currentPage={currentPage}
-                    setRecipes={setRecipes}
-                    setCount={setCount}
-                    setSearching={setSearching}
-                    setTotalPages={setTotalPages}
-                    setTotal={setTotal}
-                    setCurrentPage={setCurrentPage}
-                    getAll={getAllrecipes}
-                />
+            <FormProvider>
+                <RecipesProvider recipes={recipes} setRecipes={setRecipes}>
+                    <div className="column1 d-flex flex-row   gap-1 gr">
+                        {
+                            openSide ?
+                                <>
+                                    <div className="head-section d-flex flex-column col-2  bound">
+                                        <Header
+                                            openSide={openSide}
+                                            setOpenSide={setOpenSide}
+                                        />
+                                    </div>
+                                    <div className="column2 d-flex flex-column w-100  gap-1 bound">
+                                        <div className="fusion-container d-flex col-11 flex-row gap-1 ">
+                                            <div className="middle-container d-flex flex-column   col-8 ">
+                                                <SearchName
+                                                    setRecipes={setRecipes}
+                                                />
+                                                {
+                                                    <div className="recipes-container">
+                                                        <span className='count'>
+                                                            {total} recipe(s)</span>
+                                                        <div className="cards-container">
+                                                            {
+                                                                recipes && recipes.length > 0 && recipes.map(it => {
+                                                                    return <RecipeCard
+                                                                        key={it._id}
+                                                                        item={it}
+                                                                    />
+                                                                })
+                                                            }
+                                                        </div>
 
-            </div>
+                                                        <Pagination
+                                                            totalPages={totalPages}
+                                                            currentPage={currentPage}
+                                                            setCurrentPage={setCurrentPage}
+                                                            setTotalPages={setTotalPages}
+                                                        />
+                                                    </div>
+                                                }
 
-            <hr />
-            {
-                <div className="recipes-container ">
-                    <span className='count'>
-                        {/* {count} of  */}
-                        {total} recipe(s)</span>
-                    {
-                        recipes && recipes.length > 0 && recipes.map(it => {
-                            return <RecipeCard
-                                key={it._id}
-                                name={it.name}
-                                imgUrl={it.imgUrl}
-                                time={it.time}
-                                timeUnit={it.timeUnit}
-                                energy={it.energy}
-                                energyUnit={it.energyUnit}
-                                ingredients={it.ingredients}
-                                description={it.description}
-                                instructions={it.instructions}
-                            />
-                        })
-                    }
-                </div>
-            }
+                                            </div>
+                                            <div className="last-container col-4 ">
+                                                <SimilarWords />
+                                                <IngredientForm
+                                                    searching={searching}
+                                                    pageSize={pageSize}
+                                                    currentPage={currentPage}
+                                                    setRecipes={setRecipes}
+                                                    setCount={setCount}
+                                                    setSearching={setSearching}
+                                                    setTotalPages={setTotalPages}
+                                                    setTotal={setTotal}
+                                                    setCurrentPage={setCurrentPage}
+                                                    getAll={getAllrecipes}
+                                                />
+                                                <hr />
+                                            </div>
+                                        </div>
+                                        <Footer />
+                                    </div>
+                                </>
+                                :
+                                <>
+                                    <div className="head-section d-flex flex-column bound">
+                                        <Header
+                                            openSide={openSide}
+                                            setOpenSide={setOpenSide}
+                                        />
+                                    </div>
+                                    <div className="column2 d-flex flex-column w-100  gap-1 bound">
+                                        <div className="fusion-container d-flex col-11 flex-row gap-1 ">
+                                            <div className="middle-container d-flex flex-column   col-8">
+                                                <SearchName
+                                                    setRecipes={setRecipes}
+                                                />
+                                                {
+                                                    <div className="recipes-container">
+                                                        <span className='count'>
+                                                            {total} recipe(s)</span>
+                                                        {
+                                                            recipes && recipes.length > 0 && recipes.map(it => {
+                                                                return <RecipeCard
+                                                                    key={it._id}
+                                                                    item={it}
+                                                                />
+                                                            })
+                                                        }
+                                                        <Pagination
+                                                            totalPages={totalPages}
+                                                            currentPage={currentPage}
+                                                            setCurrentPage={setCurrentPage}
+                                                            setTotalPages={setTotalPages}
+                                                        />
+                                                    </div>
+                                                }
 
-            <Pagination
-                totalPages={totalPages}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                setTotalPages={setTotalPages}
-            />
-            <Footer />
+
+                                            </div>
+                                            <div className="last-container col-4">
+                                                <SimilarWords
+
+                                                />
+                                                <IngredientForm
+                                                    searching={searching}
+                                                    pageSize={pageSize}
+                                                    currentPage={currentPage}
+                                                    setRecipes={setRecipes}
+                                                    setCount={setCount}
+                                                    setSearching={setSearching}
+                                                    setTotalPages={setTotalPages}
+                                                    setTotal={setTotal}
+                                                    setCurrentPage={setCurrentPage}
+                                                    getAll={getAllrecipes}
+                                                />
+                                                <hr />
+                                            </div>
+                                        </div>
+                                        <Footer />
+                                    </div>
+                                </>
+                        }
+                    </div>
+                </RecipesProvider>
+
+            </FormProvider>
         </>
     )
 }

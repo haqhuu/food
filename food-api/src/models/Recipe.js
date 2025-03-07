@@ -30,13 +30,17 @@ const RecipeSchema = new Schema({
     energyUnit: { type: String, default: "cal" },
     time: { type: Number, default: 30 },
     timeUnit: { type: String, default: "mins" },
+    quantity: { type: Number, default: 1 },
+    type: { type: String, default: null },
+
+    author: { type: String, default: "Master chef" },
     description: { type: String, default: "<none>" },
     ingredients: [RecipeIngredientSchema],
     instructions: [InstructionSchema],
     tags: [{ type: String, default: null }],
     ratings: {
-        rate: { type: Number, default: 0 },
-        count: { type: Number, default: 0 }
+        rate: { type: Number, default: 1 },
+        count: { type: Number, default: 1 }
     }
     // Thêm các metadata khác (ví dụ: popularity, createdAt, tags, …)
 });

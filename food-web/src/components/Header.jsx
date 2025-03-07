@@ -2,20 +2,56 @@ import { useState, useEffect } from 'react';;
 import axios from "../setup/axios.jsx";
 import reactLogo from '../assets/react.svg'
 import viteLogo from '/vite.svg'
-import '../styles/Footer.css'
+// import '../styles/Footer.css'
 import Menu from "./Menu.jsx";
 import "./Header.css";
 import { Link } from "react-router-dom";
+import logo from "/ascii-art.png";
+import logo2 from "/ascii-art2.png";
+import logo3 from "/ascii-art3.png";
+import logo4 from "/ascii-art4.png";
 
-function Header() {
+function Header({ openSide, setOpenSide }) {
     return (
         <>
-            <div className='header-container w-25 d-flex flex-column'>
-                <Link to="/" >
-                    <img src={"https://storage.needpix.com/rsynced_images/grain-42620_1280.png"} className="logo" alt="Logo" />
-                </Link>
-                <span className='title text-center'>Provide search recipes</span>
-            </div>
+            {
+                openSide ?
+                    <div className='header-container d-flex flex-column p-0 col-12'>
+                        <div className="logo-container d-flex flex-row w-100   ">
+                            <img src={logo} className="logo" alt="Logo" />
+                            <button aria-hidden="true" className='btn btn-white   '
+                                onClick={() => setOpenSide(!openSide)}
+                            >&laquo;</button>
+                        </div>
+                        <div className='nav-container d-flex flex-row w-100   '>
+                            <img src={logo3} className="logo3" alt="Logo" />
+                            <span className='title-nav text-center'> Search recipes</span>
+                        </div>
+                        <div className='nav-container d-flex flex-row w-100   '>
+                            <img src={logo4} className="logo3" alt="Logo" />
+                            <span className='title-nav text-center'> Add recipe</span>
+                        </div>
+                    </div>
+                    :
+                    <div className='header-container2 d-flex flex-column p-0'>
+                        <div className="logo-container d-flex flex-row   ">
+                            <button aria-hidden="true" className='btn btn-white   '
+                                onClick={() => setOpenSide(!openSide)}
+                            >&raquo;</button>
+
+
+                        </div>
+                        <img src={logo2} className="logo" alt="Logo" />
+                        <div className='nav-container d-flex flex-row    '>
+                            <img src={logo3} className="logo3" alt="Logo" />
+
+                        </div>
+                        <div className='nav-container d-flex flex-row   '>
+                            <img src={logo4} className="logo3" alt="Logo" />
+
+                        </div>
+                    </div>
+            }
         </>
     )
 }

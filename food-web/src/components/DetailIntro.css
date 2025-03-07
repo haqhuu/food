@@ -1,0 +1,10 @@
+.detail-intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+.card-name {
+    font-weight: bold;
+}

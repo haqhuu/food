@@ -1,0 +1,51 @@
+.search-name-input {
+    align-self: flex-start;
+    padding: 1rem;
+    position: relative;
+    /* width: 100%; */
+}
+
+.search-name-input input {
+    position: relative;
+    height: 2lh;
+}
+
+.search-name-input button {
+    position: absolute;
+    top: 0;
+    height: 2lh;
+    right: 0;
+}
+
+.name-search-suggest-item {
+    padding: 0.5em;
+    cursor: pointer;
+    background: #eeeeee;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.name-search-suggest-item:hover {
+    background: #dfdfdf;
+}
+
+.name-search-suggest-container {
+    width: 100%;
+    font-weight: 600;
+    position: absolute;
+    z-index: 2;
+    margin-right: 10%;
+}
+
+
+.input-search-recipe-name {
+    position: relative;
+    right: 0;
+}
+
+.input-search-recipe-name {
+    /* width: 100%; */
+}

@@ -6,7 +6,7 @@ import '../styles/RecipeCard.css'
 import Menu from "../components/Menu.jsx";
 import { Link } from "react-router-dom";
 import Popup from './Popup.jsx';
-
+import DetailIntro from "../components/DetailIntro.jsx";
 function RecipeCard(props) {
     const [isPopupOpen, setPopupOpen] = useState(false);
 
@@ -16,20 +16,17 @@ function RecipeCard(props) {
     useEffect(() => {
 
     }, [isPopupOpen]);
-
+    console.log("ittt: ", props)
     return (
         <>
             <div className='recipe-container d-flex flex-row' onClick={() => setPopupOpen(true)}>
-                <img src={props.imgUrl} style={{ width: "100px", height: "100px" }} alt={props.imgUrl} />
-                <div className='intro'>
-                    <span className='name'>{props.name}</span>
-                    <span>🗲__ : {props.energy} {props.energyUnit}</span>
-                    <span>⏲_ : {props.time} {props.timeUnit}</span>
-                </div>
-
+                <img src={props.item.imgUrl} style={{ width: "100px", height: "100px" }} alt={props.item.imgUrl} />
+                <DetailIntro
+                    item={props.item}
+                />
             </div>
             {isPopupOpen && <Popup
-                props={props}
+                item={props.item}
                 onClose={() => setPopupOpen(false)}
             />}
         </>

@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 function Footer() {
     return (
         <>
-            <div className='footer-container row d-flex flex-row'>
-                To make your life more convience - c:2025!
+            <div className='footer-container row d-flex flex-row col-11 red'>
+                To make your life more convience - c:2025! (Get in touch: https://www.asciiart.eu/image-to-ascii (fake))
             </div>
         </>
     )

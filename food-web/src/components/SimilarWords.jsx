@@ -8,8 +8,16 @@ import { Link } from "react-router-dom";
 import { useForm } from '../context/FormContext.jsx';
 
 function SimilarWords() {
-    const { similars, setSimilar } = useForm();
-    console.log("ssssssimi: ", similars);
+    const { similars, setSimilar, nameRecipe } = useForm();
+    // console.log("ssssssimi: ", p);
+    // console.log("ssssssimi: ", similars);
+    // console.log("search name: ", nameRecipe);
+
+
+
+
+    useEffect(() => {
+    }, [nameRecipe]);
     return (
         <>
             <div className='similar-wrords-container'>
@@ -20,7 +28,7 @@ function SimilarWords() {
                     {similars && similars.length > 0 && similars.map((it, index) => {
                         return <>
                             <button key={index} className='btn btn-warning similar-item'>
-                                {"this is sygesstion " + it}
+                                {it + nameRecipe}
                             </button>
                         </>
 

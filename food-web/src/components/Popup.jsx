@@ -35,11 +35,10 @@ const Popup = (props) => {
                 <div className="main-popup">
                     <div className="intro-popup">
                         <div className="img-recipe w-25">
-                            <img style={{ width: "200px", height: "200px" }} src={props.imgUrl} alt={props.imgUrl} />
+                            <img style={{ width: "200px", height: "200px" }} src={props.item.imgUrl} alt={props.item.imgUrl} />
                         </div>
                         <div className="right-popup-content w-75">
                             <div className="attribute-content-popup">
-
                                 {
                                     props.item.energy && props.item.energyUnit ?
                                         <>•<img className="ic" src={fire} alt="" /><span>Calories: {props.item.energy} {props.item.energyUnit} </span> </> : ""

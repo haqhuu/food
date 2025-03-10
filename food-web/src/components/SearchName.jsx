@@ -6,7 +6,7 @@ import { useForm } from '../context/FormContext.jsx';
 import { useRecipes } from '../context/RecipesContext.jsx';
 
 function SearchName() {
-    const { nameRecipe, setNameRecipe } = useForm();
+    const { nameRecipe, setNameRecipe, setSimilars } = useForm();
     const [nameSuggestions, setNameSuggestions] = useState([]);
     const [active, setActive] = useState(false);
     const { setRecipes } = useRecipes();
@@ -35,6 +35,24 @@ function SearchName() {
         }
     };
 
+
+    const handleSearchSimilars = async () => {
+        try {
+
+            const response = await axios.post("/keywords/similars",
+                {
+                    params: {
+                        q: nameRecipe
+                    }
+                });
+
+            console.log("=>>res.dt::::", response);
+            // setSimilars(ressetSimilarsponse.data);
+        } catch (error) {
+            console.error('Lỗi khi tìm kiếm từ khóa:', error);
+        }
+    };
+
     const removeSearchName = () => {
         setNameRecipe("");
         setActive(false);
@@ -44,7 +62,9 @@ function SearchName() {
         searchNameSuggestions();
     }, [nameRecipe]);
 
-
+    useEffect(() => {
+        handleSearchSimilars();
+    }, [nameRecipe]);
 
     const handleSelect = (indexItem, item) => {
         console.log(item, "item-----");

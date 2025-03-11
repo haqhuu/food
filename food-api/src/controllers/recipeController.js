@@ -251,10 +251,9 @@ export const searchName = async (req, res) => {
             });
         }
         // const regex = new RegExp(req.query, "i");
-        const result = await Recipe.find(
-            {
-                name: new RegExp(req.query.query, 'i')
-            },
+        const result = await Recipe.find({
+            name: new RegExp(req.query.query, 'i')
+        },
             {}
         ).limit(7);
         return res.status(200).json({

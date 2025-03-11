@@ -2,12 +2,20 @@
 import { useEffect, useState } from "react";
 import axios from "../setup/axios.jsx";
 import "./IngredientForm.css";
-import { useForm } from "../context/FormContext.jsx";
+// import { useForm } from "../context/FormContext.jsx";
+import { useProvider } from "../context/Provider.jsx";
 
 const limitIngredients = 7;
-
-function IngredientForm({ searching, pageSize, currentPage, setRecipes, setCount, setSearching, setTotalPages, setTotal, setCurrentPage, getAll }) {
-    const { ingredients, setIngredients } = useForm();
+const pageSize = 4;
+function IngredientForm({ getAll }) {
+    const {
+        searching,
+        currentPage, setRecipes,
+        setSearching,
+        setTotalPages, setTotalRecord,
+        setCurrentPage,
+    } = useProvider();
+    const { ingredients, setIngredients } = useProvider();
     const [activeIndex, setActiveIndex] = useState(""); // Track which input is active
     const [suggestions, setSuggestions] = useState([]);
 
@@ -95,7 +103,7 @@ function IngredientForm({ searching, pageSize, currentPage, setRecipes, setCount
             const response = await axios.post("/recipes/search", payload);
             // console.log("ress", response);
             setRecipes(response.recipes);
-            setTotal(response.totalRecords);
+            setTotalRecord(response.totalRecords);
             setCurrentPage(response.currentPage);
             setTotalPages(response.totalPages);
             // console.log("state: ----------------");
@@ -154,7 +162,7 @@ function IngredientForm({ searching, pageSize, currentPage, setRecipes, setCount
                                     {suggestions && suggestions.map((item, indexIt) => (
                                         <li
                                             key={indexIt}
-                                            onClick={() => handleSelect(index, item)}
+                                            onClick={() => handleSelect(indexIt, item)}
                                             className="suggest-item form-group">
                                             {item.name}
                                             <img style={{ width: "35px", height: "35px" }} src={item.imgUrl} alt="" />

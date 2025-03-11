@@ -28,6 +28,7 @@ export const Provider = ({ children }) => {
         invalidImgUrl: false,
     });
 
+
     // ingredient index
     const [nameIngredient, setNameIngredient] = useState("");
     const [ingredientAliases, setIngredientAliases] = useState("");
@@ -38,10 +39,18 @@ export const Provider = ({ children }) => {
         invalidImgUrl: false,
     });
 
+    const [listIngredient, setListIngredient] = useState([]);
+    const [listRecipe, setListRecipe] = useState([]);
+
+    const [limitIngLength, setLimitIngLength] = useState(7);
+    const [limitRecipeLength, setLimitRecipeLength] = useState(7);
 
     return (
         <ProviderContext.Provider
             value={{
+                limitIngLength, setLimitIngLength,
+                limitRecipeLength, setLimitRecipeLength,
+
                 openSide, setOpenSide,
                 ingredients, setIngredients,
                 similars, setSimilars,
@@ -67,6 +76,8 @@ export const Provider = ({ children }) => {
                 totalRecord, setTotalRecord,
                 totalPages, setTotalPages,
                 currentPage, setCurrentPage,
+                listIngredient, setListIngredient,
+                listRecipe, setListRecipe
             }} >
             {children}
         </ProviderContext.Provider>

@@ -5,15 +5,14 @@ import viteLogo from '/vite.svg'
 import './SimilarWords.css';
 import Menu from "./Menu.jsx";
 import { Link } from "react-router-dom";
-import { useForm } from '../context/FormContext.jsx';
+// import { useForm } from '../context/FormContext.jsx';
+import { useProvider } from '../context/Provider.jsx';
 
 function SimilarWords() {
-    const { similars, setSimilar, nameRecipe } = useForm();
+    const { similars, setSimilar, nameRecipe } = useProvider();
     // console.log("ssssssimi: ", p);
     // console.log("ssssssimi: ", similars);
     // console.log("search name: ", nameRecipe);
-
-
 
 
     useEffect(() => {

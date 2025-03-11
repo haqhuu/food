@@ -4,19 +4,24 @@ import { Link } from "react-router-dom";
 import "./SearchName.css";
 import { useForm } from '../context/FormContext.jsx';
 import { useRecipes } from '../context/RecipesContext.jsx';
+import { useProvider } from '../context/Provider.jsx';
 
 function SearchName() {
-    const { nameRecipe, setNameRecipe, setSimilars } = useForm();
+    const {
+        nameSearchRecipe, setNameSearchRecipe,
+        setSimilars,
+        recipes, setRecipes
+    } = useProvider();
     const [nameSuggestions, setNameSuggestions] = useState([]);
     const [active, setActive] = useState(false);
-    const { setRecipes } = useRecipes();
+    // const { setRecipes } = useRecipes();
 
     const searchNameSuggestions = async () => {
         if (nameSuggestions) {
             try {
                 const data = await axios.get("/recipes/searchName", {
                     params: {
-                        query: nameRecipe
+                        query: nameSearchRecipe
                     }
                 });
                 console.log("dataa: ", data);
@@ -35,14 +40,12 @@ function SearchName() {
         }
     };
 
-
     const handleSearchSimilars = async () => {
         try {
-
             const response = await axios.post("/keywords/similars",
                 {
                     params: {
-                        q: nameRecipe
+                        q: nameSearchRecipe
                     }
                 });
 
@@ -54,22 +57,22 @@ function SearchName() {
     };
 
     const removeSearchName = () => {
-        setNameRecipe("");
+        setNameSearchRecipe("");
         setActive(false);
     }
 
     useEffect(() => {
         searchNameSuggestions();
-    }, [nameRecipe]);
+    }, [nameSearchRecipe]);
 
     useEffect(() => {
         handleSearchSimilars();
-    }, [nameRecipe]);
+    }, [nameSearchRecipe]);
 
     const handleSelect = (indexItem, item) => {
         console.log(item, "item-----");
         console.log("index L : ", indexItem);
-        setNameRecipe(nameSuggestions[indexItem].name);
+        setNameSearchRecipe(nameSuggestions[indexItem].name);
         setActive(false);
     }
 
@@ -81,8 +84,8 @@ function SearchName() {
                         className="form-control input-name-recipe"
                         type="text"
                         placeholder="Name Recipe"
-                        value={nameRecipe}
-                        onChange={(e) => { setNameRecipe(e.target.value); setActive(true) }}
+                        value={nameSearchRecipe}
+                        onChange={(e) => { setNameSearchRecipe(e.target.value); setActive(true) }}
                         onClick={() => setActive(true)}
                         onBlur={() => setTimeout(() => setActive(false), 200)}
                     />

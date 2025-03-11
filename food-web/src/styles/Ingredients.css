@@ -2,3 +2,59 @@
     border-radius: 5px;
     /* align-items: center; */
 }
+
+.list-ing-header {
+    justify-content: space-between;
+}
+
+.list-ing-search-section {
+    align-items: left;
+    border-bottom: 1px solid silver;
+}
+
+/* /////////////////////////////////////////////////// */
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.suggest-item {
+    /* padding: 0.5em; */
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+    background: #eeeeee;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.suggest-item:hover {
+    background: #dfdfdf;
+}
+
+.suggest-container {
+    width: 100%;
+    font-weight: 600;
+    position: absolute;
+    /* padding: 0 2rem 0 2rem; */
+    top: 2.5rem;
+    left: -1rem;
+    z-index: 10;
+}
+
+.list-ing-search-section {
+    position: relative;
+}
+
+.list-ing-search-section input {}
+
+.list-ing-main {
+    /* position: relative; */
+}

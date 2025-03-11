@@ -7,8 +7,14 @@ import Menu from "../components/Menu.jsx";
 import { Link } from "react-router-dom";
 import Popup from './Popup.jsx';
 import "./Pagination.css";
+import { useProvider } from '../context/Provider.jsx';
 
-function Pagination(props) {
+function Pagination() {
+    const {
+        totalPages, setTotalPages,
+        currentPage, setCurrentPage
+
+    } = useProvider();
     const [prev, setPrev] = useState(1);
     const [next, setNext] = useState(2);
     const [pButton, setPbutton] = useState(true);
@@ -23,7 +29,7 @@ function Pagination(props) {
         setPbutton(false);
         setN(true);
         setNbutton(true);
-        props.setCurrentPage(1);
+        setCurrentPage(1);
 
     }
     const handleOnClickNextButton = (e) => {
@@ -31,88 +37,88 @@ function Pagination(props) {
         setNbutton(false);
         setP(true);
         setPbutton(true);
-        setPrev(props.totalPages - 1);
-        props.setCurrentPage(props.totalPages - 0);
+        setPrev(totalPages - 1);
+        setCurrentPage(totalPages - 0);
     }
 
     const handleOnClickPrev = (e) => {
-        if (props.currentPage - 1 <= 1) {
+        if (currentPage - 1 <= 1) {
             setP(false);
             setPbutton(false);
             setN(true);
             setNbutton(true);
             setNext(next - 1);
-            props.setCurrentPage(props.currentPage - 1);
+            setCurrentPage(currentPage - 1);
         } else {
-            setPrev(props.currentPage - 2);
-            setNext(props.currentPage);
-            props.setCurrentPage(props.currentPage - 1);
+            setPrev(currentPage - 2);
+            setNext(currentPage);
+            setCurrentPage(currentPage - 1);
         }
     }
 
     const handleOnClickNext = (e) => {
-        if (props.currentPage + 1 >= props.totalPages) {
+        if (currentPage + 1 >= totalPages) {
             setN(false);
             setNbutton(false);
             setP(true);
             setPbutton(true);
-            setPrev(props.currentPage);
-            props.setCurrentPage(props.currentPage + 1);
+            setPrev(currentPage);
+            setCurrentPage(currentPage + 1);
         }
         else {
-            setPrev(props.currentPage);
-            setNext(props.currentPage + 2);
-            props.setCurrentPage(props.currentPage + 1);
+            setPrev(currentPage);
+            setNext(currentPage + 2);
+            setCurrentPage(currentPage + 1);
         }
     }
 
     useEffect(() => {
-        console.log("c; ", props.currentPage);
-        console.log(props.totalPages);
-        if (props.totalPages === 0) {
+        console.log("c; ", currentPage);
+        console.log(totalPages);
+        if (totalPages === 0) {
             console.log(222);
             setPbutton(false);
             setNbutton(false);
             setP(false);
             setC(false);
             setN(false);
-        } else if (props.totalPages === 1) {
+        } else if (totalPages === 1) {
             setPbutton(false);
             setNbutton(false);
             setP(false);
             setN(false);
-        } else if (props.totalPages === 2) {
+        } else if (totalPages === 2) {
             setPbutton(false);
             setNbutton(false);
-            if (props.currentPage === 1) {
+            if (currentPage === 1) {
                 setP(false);
             } else {
                 setN(false);
             }
-        } else if (props.totalPages === 3) {
-            if (props.currentPage === 1) {
+        } else if (totalPages === 3) {
+            if (currentPage === 1) {
                 setPbutton(false);
                 setP(false);
                 setN(true);
                 setNbutton(true);
-            } else if (props.currentPage === 2) {
+            } else if (currentPage === 2) {
                 setPbutton(false);
                 setNbutton(false);
                 setP(true);
                 setN(true);
-            } else if (props.currentPage === 3) {
+            } else if (currentPage === 3) {
                 setNbutton(false);
                 setN(false);
                 setPbutton(true);
                 setP(true);
             }
         } else {
-            if (props.currentPage === 1) {
+            if (currentPage === 1) {
                 setP(false);
                 setPbutton(false);
                 setN(true);
                 setNbutton(true);
-            } else if (props.currentPage === props.totalPages) {
+            } else if (currentPage === totalPages) {
                 setN(false);
                 setNbutton(false);
                 setP(true);
@@ -125,12 +131,12 @@ function Pagination(props) {
             }
 
         }
-        if (props.totalPages !== 0) {
+        if (totalPages !== 0) {
             setC(true);
         }
 
         window.scrollTo(0, 0);
-    }, [props.totalPages, props.currentPage,
+    }, [totalPages, currentPage,
         n, p, nButton, pButton
     ]);
 
@@ -150,7 +156,7 @@ function Pagination(props) {
                 {
                     c ?
 
-                        <li className="page-item2 li-item" name="item2" onClick={() => window.scrollTo(0, 0)}><a className="page-link" style={{ color: "red" }}>{props.currentPage}</a></li>
+                        <li className="page-item2 li-item" name="item2" onClick={() => window.scrollTo(0, 0)}><a className="page-link" style={{ color: "red" }}>{currentPage}</a></li>
                         : ""
                 }
 

@@ -29,13 +29,6 @@ function Index() {
         currentPage, setCurrentPage,
         openSide, setOpenSide
     } = useProvider();
-    // const [recipes, setRecipes] = useState([""]);
-    // const [searching, setSearching] = useState(false);
-    // const [count, setCount] = useState(0);
-    // const [total, setTotal] = useState(0);
-    // const [totalPages, setTotalPages] = useState(1);
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const [openSide, setOpenSide] = useState(true);
 
     const getAllrecipes = async () => {
         const query = { page: currentPage, pageSize: pageSize }
@@ -48,9 +41,6 @@ function Index() {
         setCurrentPage(response.currentPage);
         setCountRecord(response.recipes.length);
         setRecipes(response.recipes);
-        // console.log(
-        //     "recipes::", response
-        // );
     }
 
     useEffect(() => {
@@ -101,7 +91,7 @@ function Index() {
                                     </div>
                                     <div className="last-container col-4 ">
                                         <SimilarWords />
-                                        <IngredientForm />
+                                        <IngredientForm getAll={getAllrecipes} />
                                         <hr />
                                     </div>
                                 </div>
@@ -138,7 +128,7 @@ function Index() {
                                     </div>
                                     <div className="last-container col-4">
                                         <SimilarWords />
-                                        <IngredientForm />
+                                        <IngredientForm getAll={getAllrecipes} />
                                         <hr />
                                     </div>
                                 </div>

@@ -16,21 +16,10 @@ import "./PopupEditRecipe.css";
 const cleanString = (str) => {
     return str.trim().replace(/\s*[,\.]+$/, '').replace(/^[,\.]+\s*/, '').replace(/,\s*,/g, ',');
 }
-const PopupAddRecipe = ({ onClose }) => {
+const PopupEditRecipe = ({ itemm, onClose }) => {
     // console.log("itemdddd: ", item)
-
     const [receivedItem, setReceivedItem] = useState({
-        name: "",
-        imgUrl: "",
-        energy: "",
-        energyUnit: "",
-        time: "",
-        timeUnit: "",
-        quantity: "",
-        type: "",
-        description: "",
-        ingredients: [],
-        instructions: []
+        ...itemm,
     });
     // console.log("--<>item: ", receivedItem);
     const popupRef = useRef(null);
@@ -74,7 +63,7 @@ const PopupAddRecipe = ({ onClose }) => {
                 recipe: receivedItem
             }
             // console.log("--:>paload::", payload.recipe);
-            const response = await axios.post("/recipes/create", {
+            const response = await axios.post("/recipes/update", {
                 payload
             })
             if (response.ok) {
@@ -429,4 +418,4 @@ const PopupAddRecipe = ({ onClose }) => {
     );
 };
 
-export default PopupAddRecipe;
+export default PopupEditRecipe;

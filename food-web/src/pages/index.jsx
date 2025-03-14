@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';;
+import { useState, useEffect, useCallback } from 'react';;
 import axios from "../setup/axios.jsx";
 // import reactLogo from '../assets/react.svg'
 // import viteLogo from '/vite.svg'
@@ -16,6 +16,7 @@ import SimilarWords from "../components/SimilarWords.jsx";
 // import { RecipesProvider } from '../context/RecipesContext.jsx';
 // import { CloseOpenProvider } from '../context/CloseOpenContext.jsx';
 import { useProvider } from '../context/Provider.jsx';
+import { useLocation } from "react-router-dom";
 
 const pageSize = 4;
 
@@ -29,31 +30,35 @@ function Index() {
         currentPage, setCurrentPage,
         openSide, setOpenSide
     } = useProvider();
-
-    const getAllrecipes = async () => {
-        const query = { page: currentPage, pageSize: pageSize }
-
-        const response = await axios.get("/recipes", { params: query });
-        setTotalRecord(response.total);
-        // setTotalPages(5);
-
-        setTotalPages(response.totalPages);
-        setCurrentPage(response.currentPage);
-        setCountRecord(response.recipes.length);
-        setRecipes(response.recipes);
-    }
-
-    useEffect(() => {
-        console.log("searching", searching);
-        if (!searching) {
-            getAllrecipes();
-        }
-    }, [currentPage, searching]);
-
+    const location = useLocation();
+    // Reset currentPage về 1 khi pathname thay đổi (tùy chọn)
     useEffect(() => {
         setCurrentPage(1);
-    }, [totalPages]);
+    }, [location.pathname, setCurrentPage]);
 
+    // Hàm lấy danh sách recipes
+    const getAllrecipes = useCallback(async () => {
+        const query = { page: currentPage, pageSize: pageSize };
+        const response = await axios.get("/recipes", { params: query });
+        setTotalRecord(response.total);
+        setTotalPages(response.totalPages);
+        setCountRecord(response.recipes.length);
+        setRecipes(response.recipes);
+    }, [currentPage, setTotalRecord, setTotalPages, setCountRecord, setRecipes]);
+
+    useEffect(() => {
+
+    }, [recipes]);
+
+    // Gọi getAllrecipes khi currentPage thay đổi
+    // useEffect(() => {
+    //     getAllrecipes();
+    // }, [getAllrecipes]);
+
+
+    // useEffect(() => {
+    //     getAllrecipes();
+    // }, [currentPage]);
 
     return (
         <>
@@ -71,8 +76,8 @@ function Index() {
                                         <SearchName />
                                         {
                                             <div className="recipes-container">
-                                                <span className='count'>
-                                                    {totalRecord} recipe(s)</span>
+                                                {/* <span className='count'>
+                                                    {totalRecord} recipe(s)</span> */}
                                                 <div className="cards-container">
                                                     {
                                                         recipes && recipes.length > 0 && recipes.map(it => {
@@ -110,8 +115,7 @@ function Index() {
                                         <SearchName />
                                         {
                                             <div className="recipes-container">
-                                                <span className='count'>
-                                                    {totalRecord} recipe(s)</span>
+
                                                 {
                                                     recipes && recipes.length > 0 && recipes.map(it => {
                                                         return <RecipeCard

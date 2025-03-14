@@ -124,3 +124,32 @@ button:focus-visible {
 .search-container {
   padding-bottom: 2rem;
 }
+
+.bound {
+  border: 1px solid rgb(243, 243, 243);
+  background: white;
+  border-radius: 7px;
+  height: 100vh;
+  height: 100vh;
+}
+
+.column1 {
+  height: 100vh !important;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Đặt margin và padding của html và body về 0 để loại bỏ khoảng trống mặc định */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  /* Chiều cao của viewport */
+  overflow-x: hidden;
+  /* Ngăn cuộn ngang nếu cần */
+}

@@ -16,8 +16,8 @@ import logo5 from "/ascii-art-ing.png";
 import { useProvider } from '../context/Provider.jsx';
 
 function Header() {
-    const p = useProvider();
-    console.log("xxx header: ", p);
+    // const p = useProvider();
+    // console.log("xxx header: ", p);
 
     const { openSide, setOpenSide } = useProvider();
     return (
@@ -27,9 +27,10 @@ function Header() {
                     <div className='header-container d-flex flex-column p-0 col-12'>
                         <div className="logo-container d-flex flex-row w-100   ">
                             <img src={logo} className="logo" alt="Logo" />
-                            <button aria-hidden="true" className='btn btn-white   '
+                            {/* <button aria-hidden="true" className='btn btn-white   '
                                 onClick={() => setOpenSide(!openSide)}
-                            >&laquo;</button>
+                            >&laquo;
+                            </button> */}
                         </div>
                         <NavLink
                             to={"/"}

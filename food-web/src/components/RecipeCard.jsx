@@ -16,7 +16,7 @@ function RecipeCard(props) {
     useEffect(() => {
 
     }, [isPopupOpen]);
-    console.log("ittt: ", props)
+    // console.log("ittt: ", props)
     return (
         <>
             <div className='recipe-container d-flex flex-row' onClick={() => setPopupOpen(true)}>

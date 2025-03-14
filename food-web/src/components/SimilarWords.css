@@ -20,7 +20,7 @@
     border: 1px solid rgb(243, 243, 243);
     background: white;
     border-radius: 7px;
-
+    height: 100vh;
 }
 
 .similar-wrords-container .similar-title {

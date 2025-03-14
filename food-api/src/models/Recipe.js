@@ -17,7 +17,7 @@ const RecipeIngredientSchema = new Schema({
 });
 
 const InstructionSchema = new Schema({
-    step: { type: Number, required: true },
+    step: { type: Number, required: false },
     text: { type: String, required: true },
     timeMinutes: { type: String, default: 0 },
     imgUrl: { type: String, default: "https://images.wordcloud.app/wikipedia/404.php.png" }  // Có thể chứa đường dẫn URL nếu kèm hình ảnh hoặc video
@@ -32,7 +32,6 @@ const RecipeSchema = new Schema({
     timeUnit: { type: String, default: "mins" },
     quantity: { type: Number, default: 1 },
     type: { type: String, default: null },
-
     author: { type: String, default: "Master chef" },
     description: { type: String, default: "<none>" },
     ingredients: [RecipeIngredientSchema],

@@ -1,0 +1,64 @@
+.ing-popup-container {
+    background: rgb(236, 234, 234);
+    padding: 1rem;
+    /* margin-bottom: 1rem; */
+}
+
+.ing-item-popup {
+    border: 1px solid gray;
+    padding: 1rem;
+}
+
+.ing-item-alter {
+    margin-left: 5%;
+    padding: 1rem;
+    /* border-bottom: 1px solid gray; */
+}
+
+.item-btn-add {
+    margin-top: .5rem;
+    align-self: center;
+    /* margin: 0 auto; */
+}
+
+.main-ing {
+    /* border-bottom: 1px solid gray; */
+}
+
+.alter-btn-add {
+    align-self: center;
+    margin-bottom: .5rem;
+}
+
+.ins-container {
+    padding: 1rem;
+    background: rgb(221, 220, 220);
+    gap: 1rem;
+}
+
+.ins-btn-add {
+    align-self: center;
+}
+
+hr {
+    margin: .5rem;
+}
+
+.ing-item-alter-container {
+    background: rgb(215, 215, 215);
+    /* padding: 2rem; */
+}
+
+.alter-header-container {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.step-header-container {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.save-edit-recipe-btn {
+    margin-right: 1rem;
+}

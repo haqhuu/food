@@ -56,7 +56,7 @@
 
 .middle-container {
     align-items: flex-end;
-    justify-content: end;
+    /* justify-content: end; */
 }
 
 .gr {

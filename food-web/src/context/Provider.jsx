@@ -5,7 +5,7 @@ const ProviderContext = createContext(null);
 export const Provider = ({ children }) => {
     const [openSide, setOpenSide] = useState(true);
     const [ingredients, setIngredients] = useState([""]);
-    const [similars, setSimilars] = useState(["fhdfhd", "fdfhhd"]);
+    const [similars, setSimilars] = useState(["", ""]);
     const [nameSearchRecipe, setNameSearchRecipe] = useState("");
     const [recipes, setRecipes] = useState([""]);
 
@@ -56,7 +56,7 @@ export const Provider = ({ children }) => {
                 similars, setSimilars,
                 nameSearchRecipe, setNameSearchRecipe,
                 recipes, setRecipes,
-                nameSearchRecipe, setNameSearchRecipe,
+
                 recipeName, setRecipeName,
                 time, setTime,
                 energy, setEnergy,

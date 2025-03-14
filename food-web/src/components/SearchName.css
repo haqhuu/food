@@ -33,7 +33,7 @@
 }
 
 .name-search-suggest-container {
-    width: 100%;
+    /* width: 100%; */
     font-weight: 600;
     position: absolute;
     z-index: 2;

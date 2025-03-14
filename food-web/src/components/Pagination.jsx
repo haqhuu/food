@@ -7,7 +7,59 @@ import Menu from "../components/Menu.jsx";
 import { Link } from "react-router-dom";
 import Popup from './Popup.jsx';
 import "./Pagination.css";
+// import { useProvider } from '../context/Provider.jsx';
+
+// import { useState, useEffect } from 'react';
 import { useProvider } from '../context/Provider.jsx';
+
+// function Pagination() {
+//     const { totalPages, currentPage, setCurrentPage } = useProvider();
+
+//     // Tính toán các giá trị phụ
+//     const prevPage = currentPage > 1 ? currentPage - 1 : null;
+//     const nextPage = currentPage < totalPages ? currentPage + 1 : null;
+
+//     const handlePrev = () => {
+//         if (prevPage) {
+//             setCurrentPage(prevPage);
+//             window.scrollTo(0, 0);
+//         }
+//     };
+
+//     const handleNext = () => {
+//         if (nextPage) {
+//             setCurrentPage(nextPage);
+//             window.scrollTo(0, 0);
+//         }
+//     };
+
+//     return (
+//         <ul className="pagination">
+//             {prevPage && (
+//                 <li className="page-item" onClick={handlePrev}>
+//                     <a className="page-link" aria-label="Previous">
+//                         <span aria-hidden="true">&laquo;</span>
+//                     </a>
+//                 </li>
+//             )}
+//             <li className="page-item active">
+//                 <a className="page-link">{currentPage}</a>
+//             </li>
+//             {nextPage && (
+//                 <li className="page-item" onClick={handleNext}>
+//                     <a className="page-link" aria-label="Next">
+//                         <span aria-hidden="true">&raquo;</span>
+//                     </a>
+//                 </li>
+//             )}
+//         </ul>
+//     );
+// }
+
+// export default Pagination;
+
+
+
 
 function Pagination() {
     const {
@@ -76,7 +128,6 @@ function Pagination() {
         console.log("c; ", currentPage);
         console.log(totalPages);
         if (totalPages === 0) {
-            console.log(222);
             setPbutton(false);
             setNbutton(false);
             setP(false);
@@ -87,50 +138,56 @@ function Pagination() {
             setNbutton(false);
             setP(false);
             setN(false);
-        } else if (totalPages === 2) {
-            setPbutton(false);
-            setNbutton(false);
-            if (currentPage === 1) {
-                setP(false);
-            } else {
-                setN(false);
-            }
-        } else if (totalPages === 3) {
-            if (currentPage === 1) {
-                setPbutton(false);
-                setP(false);
-                setN(true);
-                setNbutton(true);
-            } else if (currentPage === 2) {
-                setPbutton(false);
-                setNbutton(false);
-                setP(true);
-                setN(true);
-            } else if (currentPage === 3) {
-                setNbutton(false);
-                setN(false);
-                setPbutton(true);
-                setP(true);
-            }
-        } else {
-            if (currentPage === 1) {
-                setP(false);
-                setPbutton(false);
-                setN(true);
-                setNbutton(true);
-            } else if (currentPage === totalPages) {
-                setN(false);
-                setNbutton(false);
-                setP(true);
-                setPbutton(true);
-            } else {
-                setN(true);
-                setNbutton(true);
-                setP(true);
-                setPbutton(true);
-            }
+        } else
+            if (totalPages === 2) {
+                // console.log(222);
 
-        }
+                setPbutton(false);
+                setNbutton(false);
+                if (currentPage === 1) {
+                    setP(false);
+                    setN(true);
+                }
+                if (currentPage === 2) {
+                    setN(false);
+                    setP(true);
+                }
+            } else if (totalPages === 3) {
+                if (currentPage === 1) {
+                    setPbutton(false);
+                    setP(false);
+                    setN(true);
+                    setNbutton(true);
+                } else if (currentPage === 2) {
+                    setPbutton(false);
+                    setNbutton(false);
+                    setP(true);
+                    setN(true);
+                } else if (currentPage === 3) {
+                    setNbutton(false);
+                    setN(false);
+                    setPbutton(true);
+                    setP(true);
+                }
+            } else {
+                if (currentPage === 1) {
+                    setP(false);
+                    setPbutton(false);
+                    setN(true);
+                    setNbutton(true);
+                } else if (currentPage === totalPages) {
+                    setN(false);
+                    setNbutton(false);
+                    setP(true);
+                    setPbutton(true);
+                } else {
+                    setN(true);
+                    setNbutton(true);
+                    setP(true);
+                    setPbutton(true);
+                }
+
+            }
         if (totalPages !== 0) {
             setC(true);
         }
@@ -139,6 +196,12 @@ function Pagination() {
     }, [totalPages, currentPage,
         n, p, nButton, pButton
     ]);
+
+    useEffect(() => {
+        setNext(currentPage + 1);
+        setPrev(currentPage - 1);
+        console.log("ttpages:  ", totalPages);
+    }, [currentPage]);
 
     return (
         <>

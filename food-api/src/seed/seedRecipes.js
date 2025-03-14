@@ -4,1176 +4,1104 @@ import Recipe from "../models/Recipe.js"; // Đảm bảo Recipe được export
 // Mảng chứa 20 bản ghi recipe mẫu
 const sampleRecipes = [
     {
-        name: "Tomato Soup",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Tomato_soup.jpg/800px-Tomato_soup.jpg",
-        energy: 150,
+        name: "Bún riêu cua",
+        imgUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/B%C3%BAn_ri%E1%BB%81u_cua.jpg/640px-B%C3%BAn_ri%E1%BB%81u_cua.jpg",
+        energy: 350,
+        energyUnit: "cal",
+        time: 60,
+        timeUnit: "mins",
+        quantity: 4,
+        type: "Món chính",
+        author: "Master Chef",
+        description:
+            "Bún riêu cua với nước dùng chua thanh, thịt cua ngọt, và hương vị đặc trưng của vùng đồng bằng.",
+        ingredients: [
+            {
+                name: "Cua đồng",
+                amount: 200,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Crab_in_shell.jpg/640px-Crab_in_shell.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Cà chua",
+                amount: 3,
+                unit: "quả",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Tomatoes.jpg/640px-Tomatoes.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Bún tươi",
+                amount: 300,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Rice_noodles.jpg/640px-Rice_noodles.jpg",
+                alternatives: [],
+            },
+        ],
+        instructions: [
+            {
+                step: 1,
+                text: "Sơ chế cua và cà chua, luộc bún cho mềm.",
+                timeMinutes: "10",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Rice_noodles.jpg/640px-Rice_noodles.jpg",
+            },
+            {
+                step: 2,
+                text: "Nấu nước dùng với cua và cà chua cho đến khi nước chua, ngọt hài hòa.",
+                timeMinutes: "30",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/B%C3%BAn_ri%E1%BB%81u_cua.jpg/640px-B%C3%BAn_ri%E1%BB%81u_cua.jpg",
+            },
+            {
+                step: 3,
+                text: "Trình bày bún với cua, rau sống và nước dùng nóng.",
+                timeMinutes: "20",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/B%C3%BAn_ri%E1%BB%81u_cua.jpg/640px-B%C3%BAn_ri%E1%BB%81u_cua.jpg",
+            },
+        ],
+        tags: ["bún riêu", "đồng bằng", "bình dân"],
+        ratings: {
+            rate: 4.7,
+            count: 90,
+        },
+    },
+    {
+        name: "Cơm lam",
+        imgUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Bamboo_Rice_%28Com_Lam%29.jpg/640px-Bamboo_Rice_%28Com_Lam%29.jpg",
+        energy: 550,
+        energyUnit: "cal",
+        time: 90,
+        timeUnit: "mins",
+        quantity: 3,
+        type: "Món chính",
+        author: "Master Chef",
+        description:
+            "Cơm lam truyền thống được nấu trong ống tre, mang hương vị độc đáo của gạo tre và đặc trưng của nông dân miền núi.",
+        ingredients: [
+            {
+                name: "Gạo lam",
+                amount: 300,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Bamboo_Rice.jpg/640px-Bamboo_Rice.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Nước",
+                amount: 500,
+                unit: "ml",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Water_droplets.jpg/640px-Water_droplets.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Muối",
+                amount: 1,
+                unit: "muỗng cà phê",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Salt_shaker.jpg/640px-Salt_shaker.jpg",
+                alternatives: [],
+            },
+        ],
+        instructions: [
+            {
+                step: 1,
+                text: "Ngâm gạo lam trong nước khoảng 30 phút.",
+                timeMinutes: "30",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Bamboo_Rice.jpg/640px-Bamboo_Rice.jpg",
+            },
+            {
+                step: 2,
+                text: "Cho gạo vào ống tre và nấu bằng củi trong 60 phút.",
+                timeMinutes: "60",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Bamboo_Rice_%28Com_Lam%29.jpg/640px-Bamboo_Rice_%28Com_Lam%29.jpg",
+            },
+            {
+                step: 3,
+                text: "Lấy cơm ra và thưởng thức khi còn nóng.",
+                timeMinutes: "5",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Bamboo_Rice_%28Com_Lam%29.jpg/640px-Bamboo_Rice_%28Com_Lam%29.jpg",
+            },
+        ],
+        tags: ["cơm lam", "nông dân", "truyền thống"],
+        ratings: {
+            rate: 4.5,
+            count: 50,
+        },
+    },
+    {
+        name: "Bánh cuốn thịt nướng",
+        imgUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Banh_cuon_thit_nuong.jpg/640px-Banh_cuon_thit_nuong.jpg",
+        energy: 350,
+        energyUnit: "cal",
+        time: 90,
+        timeUnit: "mins",
+        quantity: 2,
+        type: "Món ăn sáng",
+        author: "Master Chef",
+        description:
+            "Bánh cuốn mềm mịn kết hợp thịt nướng thơm lừng, là món ăn sáng bình dân được ưa chuộng.",
+        ingredients: [
+            {
+                name: "Bột gạo",
+                amount: 200,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Rice_flour.jpg/640px-Rice_flour.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Thịt heo nướng",
+                amount: 150,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Grilled_pork_chops.jpg/640px-Grilled_pork_chops.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Nước mắm",
+                amount: 100,
+                unit: "ml",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Fish_sauce.jpg/640px-Fish_sauce.jpg",
+                alternatives: [],
+            },
+        ],
+        instructions: [
+            {
+                step: 1,
+                text: "Trộn bột gạo với nước để tạo hỗn hợp sánh, sau đó hấp cho đến khi bánh cuốn mềm mịn.",
+                timeMinutes: "30",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Banh_cuon_thit_nuong.jpg/640px-Banh_cuon_thit_nuong.jpg",
+            },
+            {
+                step: 2,
+                text: "Nướng thịt heo cho đến khi vàng đều.",
+                timeMinutes: "40",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Grilled_pork_chops.jpg/640px-Grilled_pork_chops.jpg",
+            },
+            {
+                step: 3,
+                text: "Xếp bánh cuốn ra đĩa, cho thịt nướng và chan nước mắm.",
+                timeMinutes: "20",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Banh_cuon_thit_nuong.jpg/640px-Banh_cuon_thit_nuong.jpg",
+            },
+        ],
+        tags: ["bánh cuốn", "sáng", "bình dân"],
+        ratings: {
+            rate: 4.6,
+            count: 70,
+        },
+    },
+    {
+        name: "Canh chua cá lóc",
+        imgUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Vietnamese_sour_fish_soup.jpg/640px-Vietnamese_sour_fish_soup.jpg",
+        energy: 400,
+        energyUnit: "cal",
+        time: 45,
+        timeUnit: "mins",
+        quantity: 4,
+        type: "Món chính",
+        author: "Master Chef",
+        description:
+            "Canh chua cá lóc với vị chua, ngọt thanh, mang đậm hương vị đồng bằng, là món ăn bình dân được ưa chuộng.",
+        ingredients: [
+            {
+                name: "Cá lóc",
+                amount: 500,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Snakehead_fish.jpg/640px-Snakehead_fish.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Cà chua",
+                amount: 2,
+                unit: "quả",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Tomatoes.jpg/640px-Tomatoes.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Me chua",
+                amount: 2,
+                unit: "quả",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Tamarind.jpg/640px-Tamarind.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Rau thơm",
+                amount: 100,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Leafy_Greens.jpg/640px-Leafy_Greens.jpg",
+                alternatives: [],
+            },
+        ],
+        instructions: [
+            {
+                step: 1,
+                text: "Làm sạch cá lóc, cắt khúc vừa ăn.",
+                timeMinutes: "10",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Snakehead_fish.jpg/640px-Snakehead_fish.jpg",
+            },
+            {
+                step: 2,
+                text: "Nấu nước dùng với me chua cho đến khi đạt vị chua ngọt hài hòa.",
+                timeMinutes: "15",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Tamarind.jpg/640px-Tamarind.jpg",
+            },
+            {
+                step: 3,
+                text: "Thêm cá và cà chua vào nồi, nấu cho đến khi cá chín mềm.",
+                timeMinutes: "20",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Vietnamese_sour_fish_soup.jpg/640px-Vietnamese_sour_fish_soup.jpg",
+            },
+        ],
+        tags: ["canh chua", "cá lóc", "bình dân"],
+        ratings: {
+            rate: 4.6,
+            count: 80,
+        },
+    },
+
+    {
+        name: "Cháo gà dân dã",
+        imgUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Chicken_Congee.jpg/640px-Chicken_Congee.jpg",
+        energy: 300,
         energyUnit: "cal",
         time: 40,
         timeUnit: "mins",
-        description: "A delicious and healthy tomato soup.",
+        quantity: 3,
+        type: "Món chính",
+        author: "Master Chef",
+        description:
+            "Cháo gà dân dã với nước dùng thơm ngon, cháo mịn màng, là món ăn chính bổ dưỡng của người nông dân Việt Nam.",
         ingredients: [
             {
-                name: "Tomato",
-                amount: 4,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Tomato.png",
-                alternatives: []
-            },
-            {
-                name: "Onion",
-                amount: 1,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Onion.jpg",
-                alternatives: []
-            },
-            {
-                name: "Garlic",
-                amount: 2,
-                unit: "cloves",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/44/Garlic_bulb.jpg",
-                alternatives: []
-            },
-            {
-                name: "Salt",
-                amount: 1,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/48/Salt_crystals.jpg",
-                alternatives: []
-            },
-            {
-                name: "Pepper",
-                amount: 0.5,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/21/Black_peppercorns.jpg",
-                alternatives: []
-            }
-        ],
-        instructions: [
-            {
-                step: 1,
-                text: "Chop tomatoes, onion, and garlic.",
-                timeMinutes: "10",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Chopping_vegetables.jpg"
-            },
-            {
-                step: 2,
-                text: "Sauté onion and garlic until translucent.",
-                timeMinutes: "5",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/8/8c/Sauteing_onions.jpg"
-            },
-            {
-                step: 3,
-                text: "Add tomatoes and cook until soft.",
-                timeMinutes: "15",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4d/Simmering_soup.jpg"
-            },
-            {
-                step: 4,
-                text: "Blend the mixture, season with salt and pepper, and serve.",
-                timeMinutes: "10",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/5/5b/Blender_in_use.jpg"
-            }
-        ],
-        tags: ["soup", "vegetarian", "healthy"],
-        ratings: { rate: 4.5, count: 10 }
-    },
-    {
-        name: "Garlic Bread",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Garlic_bread.jpg",
-        energy: 250,
-        energyUnit: "cal",
-        time: 20,
-        timeUnit: "mins",
-        description: "Crispy and buttery garlic bread.",
-        ingredients: [
-            {
-                name: "Garlic",
-                amount: 3,
-                unit: "cloves",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/44/Garlic_bulb.jpg",
-                alternatives: []
-            },
-            {
-                name: "Butter",
-                amount: 50,
+                name: "Gà",
+                amount: 300,
                 unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Butter.jpg/800px-Butter.jpg",
-                alternatives: []
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Raw_chicken.jpg/640px-Raw_chicken.jpg",
+                alternatives: [],
             },
             {
-                name: "Salt",
-                amount: 0.5,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/48/Salt_crystals.jpg",
-                alternatives: []
-            }
-        ],
-        instructions: [
-            {
-                step: 1,
-                text: "Preheat your oven to 180°C.",
-                timeMinutes: "5",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/9/9e/Oven_preheat.jpg"
-            },
-            {
-                step: 2,
-                text: "Mix minced garlic with softened butter and salt.",
-                timeMinutes: "5",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/1/14/Butter_mix.jpg"
-            },
-            {
-                step: 3,
-                text: "Spread the mixture on slices of bread.",
-                timeMinutes: "5",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/21/Spreading_butter.jpg"
-            },
-            {
-                step: 4,
-                text: "Bake for 10 minutes until golden.",
-                timeMinutes: "10",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/3/30/Baked_garlic_bread.jpg"
-            }
-        ],
-        tags: ["snack", "side dish"],
-        ratings: { rate: 4.7, count: 25 }
-    },
-    {
-        name: "Onion Rings",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/7/70/Onion_rings.jpg",
-        energy: 300,
-        energyUnit: "cal",
-        time: 25,
-        timeUnit: "mins",
-        description: "Crispy fried onion rings.",
-        ingredients: [
-            {
-                name: "Onion",
-                amount: 2,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Onion.jpg",
-                alternatives: []
-            },
-            {
-                name: "Flour",
+                name: "Gạo tẻ",
                 amount: 100,
                 unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flour_%28wheat%29.jpg/800px-Flour_%28wheat%29.jpg",
-                alternatives: []
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Rice_flour.jpg/640px-Rice_flour.jpg",
+                alternatives: [],
             },
             {
-                name: "Salt",
-                amount: 1,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/48/Salt_crystals.jpg",
-                alternatives: []
+                name: "Hành lá",
+                amount: 50,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Green_onions.jpg/640px-Green_onions.jpg",
+                alternatives: [],
             },
-            {
-                name: "Pepper",
-                amount: 0.5,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/21/Black_peppercorns.jpg",
-                alternatives: []
-            }
         ],
         instructions: [
             {
                 step: 1,
-                text: "Slice onions into rings.",
-                timeMinutes: "5",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/0/08/Sliced_onions.jpg"
+                text: "Luộc gà cho đến khi chín, sau đó xé sợi.",
+                timeMinutes: "15",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Raw_chicken.jpg/640px-Raw_chicken.jpg",
             },
             {
                 step: 2,
-                text: "Coat onion rings in flour mixed with salt and pepper.",
-                timeMinutes: "5",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Onion_rings_coating.jpg"
+                text: "Nấu cháo với gạo và nước dùng từ gà cho đến khi cháo sánh mịn.",
+                timeMinutes: "20",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Chicken_Congee.jpg/640px-Chicken_Congee.jpg",
             },
             {
                 step: 3,
-                text: "Deep fry until crispy and golden.",
-                timeMinutes: "15",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Frying_onion_rings.jpg"
-            }
+                text: "Thêm gà xé và hành lá, nêm gia vị vừa ăn.",
+                timeMinutes: "5",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Chicken_Congee.jpg/640px-Chicken_Congee.jpg",
+            },
         ],
-        tags: ["snack", "appetizer"],
-        ratings: { rate: 4.3, count: 15 }
+        tags: ["cháo gà", "dân dã", "nông dân"],
+        ratings: {
+            rate: 4.5,
+            count: 70,
+        },
     },
     {
-        name: "Pasta with Tomato Sauce",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Spaghetti_with_tomato_sauce.jpg",
-        energy: 500,
+        name: "Cơm lam nông dân",
+        imgUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Bamboo_Rice_%28Com_Lam%29.jpg/640px-Bamboo_Rice_%28Com_Lam%29.jpg",
+        energy: 550,
         energyUnit: "cal",
-        time: 35,
+        time: 90,
         timeUnit: "mins",
-        description: "Classic pasta with a rich tomato sauce.",
+        quantity: 3,
+        type: "Món chính",
+        author: "Master Chef",
+        description:
+            "Cơm lam nông dân được nấu trong ống tre, mang đậm hương vị gạo tre và đặc trưng vùng núi.",
         ingredients: [
             {
-                name: "Tomato",
-                amount: 5,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Tomato.png",
-                alternatives: []
+                name: "Gạo lam",
+                amount: 300,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Bamboo_Rice.jpg/640px-Bamboo_Rice.jpg",
+                alternatives: [],
             },
             {
-                name: "Onion",
+                name: "Nước",
+                amount: 500,
+                unit: "ml",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Water_droplets.jpg/640px-Water_droplets.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Muối",
                 amount: 1,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Onion.jpg",
-                alternatives: []
+                unit: "muỗng cà phê",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Salt_shaker.jpg/640px-Salt_shaker.jpg",
+                alternatives: [],
             },
-            {
-                name: "Garlic",
-                amount: 3,
-                unit: "cloves",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/44/Garlic_bulb.jpg",
-                alternatives: []
-            },
-            {
-                name: "Basil",
-                amount: 10,
-                unit: "leaves",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/8/87/Basil_plant.jpg",
-                alternatives: []
-            },
-            {
-                name: "Salt",
-                amount: 1,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/48/Salt_crystals.jpg",
-                alternatives: []
-            },
-            {
-                name: "Pepper",
-                amount: 0.5,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/21/Black_peppercorns.jpg",
-                alternatives: []
-            }
         ],
         instructions: [
             {
                 step: 1,
-                text: "Boil pasta until al dente.",
-                timeMinutes: "10",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Boiling_pasta.jpg"
+                text: "Ngâm gạo lam trong nước khoảng 30 phút.",
+                timeMinutes: "30",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Bamboo_Rice.jpg/640px-Bamboo_Rice.jpg",
             },
             {
                 step: 2,
-                text: "Prepare tomato sauce with chopped tomatoes, onion, garlic, basil, salt, and pepper.",
-                timeMinutes: "15",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4d/Simmering_sauce.jpg"
+                text: "Cho gạo vào ống tre và nấu bằng củi trong 60 phút.",
+                timeMinutes: "60",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Bamboo_Rice_%28Com_Lam%29.jpg/640px-Bamboo_Rice_%28Com_Lam%29.jpg",
             },
             {
                 step: 3,
-                text: "Mix pasta with the sauce and serve hot.",
-                timeMinutes: "10",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Serving_pasta.jpg"
-            }
+                text: "Lấy cơm ra, bóc vỏ tre và thưởng thức khi còn nóng.",
+                timeMinutes: "5",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Bamboo_Rice_%28Com_Lam%29.jpg/640px-Bamboo_Rice_%28Com_Lam%29.jpg",
+            },
         ],
-        tags: ["pasta", "italian"],
-        ratings: { rate: 4.6, count: 20 }
+        tags: ["cơm lam", "nông dân", "truyền thống"],
+        ratings: {
+            rate: 4.5,
+            count: 50,
+        },
     },
     {
-        name: "Salad with Tomato and Basil",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/42/Caprese_salad_%28tomatoes%29.jpg",
-        energy: 200,
-        energyUnit: "cal",
-        time: 15,
-        timeUnit: "mins",
-        description: "Fresh salad featuring tomatoes, basil, and a light vinaigrette.",
-        ingredients: [
-            {
-                name: "Tomato",
-                amount: 3,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Tomato.png",
-                alternatives: []
-            },
-            {
-                name: "Basil",
-                amount: 8,
-                unit: "leaves",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/8/87/Basil_plant.jpg",
-                alternatives: []
-            },
-            {
-                name: "Olive Oil",
-                amount: 2,
-                unit: "tbsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Olive_oil.jpg/800px-Olive_oil.jpg",
-                alternatives: []
-            },
-            {
-                name: "Vinegar",
-                amount: 1,
-                unit: "tbsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Vinegar.jpg/800px-Vinegar.jpg",
-                alternatives: []
-            }
-        ],
-        instructions: [
-            {
-                step: 1,
-                text: "Chop tomatoes and basil.",
-                timeMinutes: "5",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Chopped_salad.jpg"
-            },
-            {
-                step: 2,
-                text: "Mix with olive oil and vinegar.",
-                timeMinutes: "5",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/6/60/Mixing_salad.jpg"
-            }
-        ],
-        tags: ["salad", "vegetarian", "healthy"],
-        ratings: { rate: 4.2, count: 18 }
-    },
-    {
-        name: "Potato Salad",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/0/04/Potato_salad.jpg",
+        name: "Bún riêu cua",
+        imgUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/B%C3%BAn_ri%E1%BB%81u_cua.jpg/640px-B%C3%BAn_ri%E1%BB%81u_cua.jpg",
         energy: 350,
         energyUnit: "cal",
-        time: 30,
+        time: 60,
         timeUnit: "mins",
-        description: "Creamy potato salad with a tangy dressing.",
+        quantity: 4,
+        type: "Món chính",
+        author: "Master Chef",
+        description:
+            "Bún riêu cua với nước dùng chua ngọt, hương vị đặc trưng của vùng đồng bằng, là món ăn chính đậm đà hương vị nông dân.",
         ingredients: [
             {
-                name: "Potato",
+                name: "Cua đồng",
+                amount: 200,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Crab_in_shell.jpg/640px-Crab_in_shell.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Cà chua",
                 amount: 3,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/6/67/Potato_potato.jpg",
-                alternatives: []
+                unit: "quả",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Tomatoes.jpg/640px-Tomatoes.jpg",
+                alternatives: [],
             },
             {
-                name: "Onion",
-                amount: 1,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Onion.jpg",
-                alternatives: []
+                name: "Bún tươi",
+                amount: 300,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Rice_noodles.jpg/640px-Rice_noodles.jpg",
+                alternatives: [],
             },
-            {
-                name: "Olive Oil",
-                amount: 2,
-                unit: "tbsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Olive_oil.jpg/800px-Olive_oil.jpg",
-                alternatives: []
-            },
-            {
-                name: "Salt",
-                amount: 1,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/48/Salt_crystals.jpg",
-                alternatives: []
-            }
         ],
         instructions: [
             {
                 step: 1,
-                text: "Boil potatoes until tender.",
-                timeMinutes: "15",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/7/70/Boiled_potatoes.jpg"
+                text: "Sơ chế cua và cà chua, luộc bún cho mềm.",
+                timeMinutes: "10",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Rice_noodles.jpg/640px-Rice_noodles.jpg",
             },
             {
                 step: 2,
-                text: "Chop potatoes and mix with chopped onion, olive oil, and salt.",
-                timeMinutes: "15",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Mixing_potato_salad.jpg"
-            }
+                text: "Nấu nước dùng với cua và cà chua cho đến khi nước chua ngọt hài hòa.",
+                timeMinutes: "30",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/B%C3%BAn_ri%E1%BB%81u_cua.jpg/640px-B%C3%BAn_ri%E1%BB%81u_cua.jpg",
+            },
+            {
+                step: 3,
+                text: "Trình bày bún với cua, rau sống và nước dùng nóng.",
+                timeMinutes: "20",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/B%C3%BAn_ri%E1%BB%81u_cua.jpg/640px-B%C3%BAn_ri%E1%BB%81u_cua.jpg",
+            },
         ],
-        tags: ["salad", "side dish"],
-        ratings: { rate: 4.0, count: 12 }
+        tags: ["bún riêu", "đồng bằng", "nông dân"],
+        ratings: {
+            rate: 4.7,
+            count: 90,
+        },
     },
     {
-        name: "Carrot Cake",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Carrot_cake.jpg",
+        name: "Cá kho tộ truyền thống",
+        imgUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Vietnamese_caramelized_fish.jpg/640px-Vietnamese_caramelized_fish.jpg",
+        energy: 450,
+        energyUnit: "cal",
+        time: 80,
+        timeUnit: "mins",
+        quantity: 3,
+        type: "Món chính",
+        author: "Master Chef",
+        description:
+            "Cá kho tộ với vị ngọt, mặn, đậm đà, là món ăn chính được ưa chuộng trong các gia đình nông dân Việt Nam.",
+        ingredients: [
+            {
+                name: "Cá tra",
+                amount: 500,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Fish_%28unspecified%29.jpg/640px-Fish_%28unspecified%29.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Nước mắm",
+                amount: 100,
+                unit: "ml",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Fish_sauce.jpg/640px-Fish_sauce.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Đường",
+                amount: 2,
+                unit: "muỗng cà phê",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Sugar_cubes.jpg/640px-Sugar_cubes.jpg",
+                alternatives: [],
+            },
+        ],
+        instructions: [
+            {
+                step: 1,
+                text: "Ướp cá với nước mắm, đường và gia vị trong 15 phút.",
+                timeMinutes: "15",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Fish_%28unspecified%29.jpg/640px-Fish_%28unspecified%29.jpg",
+            },
+            {
+                step: 2,
+                text: "Kho cá trong nồi đất (tộ) với lửa nhỏ trong 50 phút cho đến khi nước sốt sánh lại.",
+                timeMinutes: "50",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Vietnamese_caramelized_fish.jpg/640px-Vietnamese_caramelized_fish.jpg",
+            },
+            {
+                step: 3,
+                text: "Múc cá ra đĩa, rưới nước kho và thưởng thức khi còn nóng.",
+                timeMinutes: "15",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Vietnamese_caramelized_fish.jpg/640px-Vietnamese_caramelized_fish.jpg",
+            },
+        ],
+        tags: ["cá kho", "truyền thống", "nông dân"],
+        ratings: {
+            rate: 4.6,
+            count: 80,
+        },
+    },
+
+    {
+        name: "Bún bò Huế cay",
+        imgUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Bun_bo_hue.jpg/640px-Bun_bo_hue.jpg",
+        energy: 600,
+        energyUnit: "cal",
+        time: 80,
+        timeUnit: "mins",
+        quantity: 4,
+        type: "Món chính",
+        author: "Master Chef",
+        description:
+            "Bún bò Huế cay với nước dùng đậm đà, hương vị cay nồng, là món ăn chính được ưa chuộng bởi nông dân miền Trung.",
+        ingredients: [
+            {
+                name: "Thịt bò",
+                amount: 350,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Raw_beef.jpg/640px-Raw_beef.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Bún tươi",
+                amount: 400,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Rice_noodles.jpg/640px-Rice_noodles.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Ớt tươi",
+                amount: 5,
+                unit: "quả",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Red_chili_peppers.jpg/640px-Red_chili_peppers.jpg",
+                alternatives: [],
+            },
+        ],
+        instructions: [
+            {
+                step: 1,
+                text: "Luộc bún cho đến khi chín mềm, để ráo nước.",
+                timeMinutes: "10",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Rice_noodles.jpg/640px-Rice_noodles.jpg",
+            },
+            {
+                step: 2,
+                text: "Nấu nước dùng với thịt bò, hành, gừng và ớt tươi cho đến khi nước sánh lại và có vị cay nồng.",
+                timeMinutes: "50",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Bun_bo_hue.jpg/640px-Bun_bo_hue.jpg",
+            },
+            {
+                step: 3,
+                text: "Trình bày bún với thịt bò, rau sống và rưới nước dùng nóng.",
+                timeMinutes: "20",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Bun_bo_hue.jpg/640px-Bun_bo_hue.jpg",
+            },
+        ],
+        tags: ["bún bò Huế", "cay", "nông dân"],
+        ratings: {
+            rate: 4.7,
+            count: 120,
+        },
+    },
+    {
+        name: "Cà ri gà cay",
+        imgUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Chicken_Curry_%28Viet%29.jpg/640px-Chicken_Curry_%28Viet%29.jpg",
+        energy: 550,
+        energyUnit: "cal",
+        time: 90,
+        timeUnit: "mins",
+        quantity: 3,
+        type: "Món chính",
+        author: "Master Chef",
+        description:
+            "Cà ri gà cay với nước cốt dừa béo ngậy, vị cay nồng, mang đậm hương vị Ấn Độ pha lẫn phong cách Việt.",
+        ingredients: [
+            {
+                name: "Gà",
+                amount: 500,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Raw_chicken.jpg/640px-Raw_chicken.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Cà ri bột",
+                amount: 2,
+                unit: "muỗng canh",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Curry_powder.jpg/640px-Curry_powder.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Nước cốt dừa",
+                amount: 300,
+                unit: "ml",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Coconut_milk.jpg/640px-Coconut_milk.jpg",
+                alternatives: [],
+            },
+        ],
+        instructions: [
+            {
+                step: 1,
+                text: "Ướp gà với gia vị và cà ri bột trong 15 phút.",
+                timeMinutes: "15",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Raw_chicken.jpg/640px-Raw_chicken.jpg",
+            },
+            {
+                step: 2,
+                text: "Xào gà với hành và tỏi, sau đó cho nước cốt dừa vào nấu cho đến khi gà chín mềm.",
+                timeMinutes: "50",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Chicken_Curry_%28Viet%29.jpg/640px-Chicken_Curry_%28Viet%29.jpg",
+            },
+            {
+                step: 3,
+                text: "Nêm nếm gia vị và trang trí với rau thơm trước khi thưởng thức.",
+                timeMinutes: "10",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Chicken_Curry_%28Viet%29.jpg/640px-Chicken_Curry_%28Viet%29.jpg",
+            },
+        ],
+        tags: ["cà ri", "gà", "cay"],
+        ratings: {
+            rate: 4.6,
+            count: 95,
+        },
+    },
+    {
+        name: "Cá kho tộ cay",
+        imgUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Vietnamese_caramelized_fish.jpg/640px-Vietnamese_caramelized_fish.jpg",
+        energy: 450,
+        energyUnit: "cal",
+        time: 80,
+        timeUnit: "mins",
+        quantity: 3,
+        type: "Món chính",
+        author: "Master Chef",
+        description:
+            "Cá kho tộ cay với vị ngọt, mặn đậm đà, cay nồng, là món ăn chính đặc trưng của nông dân miền đồng bằng.",
+        ingredients: [
+            {
+                name: "Cá tra",
+                amount: 500,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Fish_%28unspecified%29.jpg/640px-Fish_%28unspecified%29.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Nước mắm",
+                amount: 100,
+                unit: "ml",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Fish_sauce.jpg/640px-Fish_sauce.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Đường",
+                amount: 2,
+                unit: "muỗng cà phê",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Sugar_cubes.jpg/640px-Sugar_cubes.jpg",
+                alternatives: [],
+            },
+        ],
+        instructions: [
+            {
+                step: 1,
+                text: "Ướp cá với nước mắm, đường và gia vị trong 15 phút.",
+                timeMinutes: "15",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Fish_%28unspecified%29.jpg/640px-Fish_%28unspecified%29.jpg",
+            },
+            {
+                step: 2,
+                text: "Kho cá tộ trên lửa nhỏ trong 50 phút cho đến khi nước sốt sánh lại, có vị cay nhẹ.",
+                timeMinutes: "50",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Vietnamese_caramelized_fish.jpg/640px-Vietnamese_caramelized_fish.jpg",
+            },
+            {
+                step: 3,
+                text: "Múc cá ra đĩa, rưới nước kho lên và thưởng thức khi còn nóng.",
+                timeMinutes: "15",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Vietnamese_caramelized_fish.jpg/640px-Vietnamese_caramelized_fish.jpg",
+            },
+        ],
+        tags: ["cá kho", "cay", "nông dân"],
+        ratings: {
+            rate: 4.6,
+            count: 80,
+        },
+    },
+    {
+        name: "Bánh cuốn chả lụa cay",
+        imgUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Banh_cuon_thit_nuong.jpg/640px-Banh_cuon_thit_nuong.jpg",
+        energy: 360,
+        energyUnit: "cal",
+        time: 70,
+        timeUnit: "mins",
+        quantity: 2,
+        type: "Món chính",
+        author: "Master Chef",
+        description:
+            "Bánh cuốn chả lụa cay với lớp bánh mỏng mềm mại, chả lụa nướng vàng và nước mắm cay đặc trưng.",
+        ingredients: [
+            {
+                name: "Bột gạo",
+                amount: 200,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Rice_flour.jpg/640px-Rice_flour.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Chả lụa",
+                amount: 150,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Vietnamese_spring_rolls.jpg/640px-Vietnamese_spring_rolls.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Ớt tươi",
+                amount: 3,
+                unit: "quả",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Red_chili_peppers.jpg/640px-Red_chili_peppers.jpg",
+                alternatives: [],
+            },
+        ],
+        instructions: [
+            {
+                step: 1,
+                text: "Pha bột gạo với nước, sau đó hấp thành bánh cuốn mỏng mềm.",
+                timeMinutes: "30",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Banh_cuon_thit_nuong.jpg/640px-Banh_cuon_thit_nuong.jpg",
+            },
+            {
+                step: 2,
+                text: "Nướng chả lụa và ớt tươi cho đến khi vàng đều, tạo vị cay nồng.",
+                timeMinutes: "30",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Vietnamese_spring_rolls.jpg/640px-Vietnamese_spring_rolls.jpg",
+            },
+            {
+                step: 3,
+                text: "Xếp bánh cuốn ra đĩa, cho chả lụa và ớt nướng lên, chan nước mắm cay và thưởng thức.",
+                timeMinutes: "10",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Banh_cuon_thit_nuong.jpg/640px-Banh_cuon_thit_nuong.jpg",
+            },
+        ],
+        tags: ["bánh cuốn", "cay", "nông dân"],
+        ratings: {
+            rate: 4.5,
+            count: 75,
+        },
+    },
+    {
+        name: "Bánh chưng truyền thống",
+        imgUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Banh_chung.jpg/640px-Banh_chung.jpg",
+        energy: 700,
+        energyUnit: "cal",
+        time: 480, // 8 giờ luộc
+        timeUnit: "mins",
+        quantity: 1,
+        type: "Món chính",
+        author: "Master Chef",
+        description:
+            "Bánh chưng truyền thống, món ăn không thể thiếu trong dịp Tết của người Việt, được làm từ gạo nếp, đậu xanh và thịt heo, gói trong lá dong.",
+        ingredients: [
+            {
+                name: "Gạo nếp",
+                amount: 500,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Rice_sticky.jpg/640px-Rice_sticky.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Đậu xanh",
+                amount: 200,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Mung_bean.jpg/640px-Mung_bean.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Thịt heo",
+                amount: 300,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Pork.jpg/640px-Pork.jpg",
+                alternatives: [],
+            },
+        ],
+        instructions: [
+            {
+                step: 1,
+                text: "Ngâm gạo nếp và đậu xanh qua đêm để mềm.",
+                timeMinutes: "120",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Rice_sticky.jpg/640px-Rice_sticky.jpg",
+            },
+            {
+                step: 2,
+                text: "Gói bánh chưng trong lá dong với lớp nhân gồm gạo nếp, đậu xanh và thịt heo.",
+                timeMinutes: "60",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Banh_chung.jpg/640px-Banh_chung.jpg",
+            },
+            {
+                step: 3,
+                text: "Luộc bánh chưng trong nồi lớn khoảng 6-8 giờ cho đến khi chín mềm.",
+                timeMinutes: "240",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Banh_chung.jpg/640px-Banh_chung.jpg",
+            },
+        ],
+        tags: ["bánh chưng", "Tết", "nông dân"],
+        ratings: {
+            rate: 4.8,
+            count: 150,
+        },
+    },
+    {
+        name: "Thịt kho tàu cay",
+        imgUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Thit_kho_tau.jpg/640px-Thit_kho_tau.jpg",
+        energy: 600,
+        energyUnit: "cal",
+        time: 90,
+        timeUnit: "mins",
+        quantity: 4,
+        type: "Món chính",
+        author: "Master Chef",
+        description:
+            "Thịt kho tàu cay với nước kho đậm đà, vị cay nồng đặc trưng, là món ăn chính phổ biến trong mùa Tết của người Việt.",
+        ingredients: [
+            {
+                name: "Thịt heo",
+                amount: 500,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Pork.jpg/640px-Pork.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Nước mắm",
+                amount: 100,
+                unit: "ml",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Fish_sauce.jpg/640px-Fish_sauce.jpg",
+                alternatives: [],
+            },
+            {
+                name: "Ớt tươi",
+                amount: 3,
+                unit: "quả",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Red_chili_peppers.jpg/640px-Red_chili_peppers.jpg",
+                alternatives: [],
+            },
+        ],
+        instructions: [
+            {
+                step: 1,
+                text: "Ướp thịt với nước mắm, đường và gia vị trong 20 phút.",
+                timeMinutes: "20",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Pork.jpg/640px-Pork.jpg",
+            },
+            {
+                step: 2,
+                text: "Kho thịt trên lửa nhỏ trong 60 phút, thêm ớt tươi để tạo vị cay nồng.",
+                timeMinutes: "60",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Thit_kho_tau.jpg/640px-Thit_kho_tau.jpg",
+            },
+            {
+                step: 3,
+                text: "Thưởng thức khi thịt đã mềm và nước kho sánh lại.",
+                timeMinutes: "10",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Thit_kho_tau.jpg/640px-Thit_kho_tau.jpg",
+            },
+        ],
+        tags: ["thịt kho", "cay", "Tết"],
+        ratings: {
+            rate: 4.7,
+            count: 110,
+        },
+    },
+    {
+        name: "Xôi gấc đỏ may mắn",
+        imgUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Xoi_gac.jpg/640px-Xoi_gac.jpg",
         energy: 450,
         energyUnit: "cal",
         time: 60,
         timeUnit: "mins",
-        description: "Moist and spiced carrot cake with cream cheese frosting.",
+        quantity: 4,
+        type: "Món chính",
+        author: "Master Chef",
+        description:
+            "Xôi gấc đỏ may mắn với màu sắc rực rỡ, ngọt bùi, là món ăn chính không thể thiếu trong dịp Tết của người Việt.",
         ingredients: [
             {
-                name: "Carrot",
-                amount: 4,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/28/Carrots.jpg",
-                alternatives: []
-            },
-            {
-                name: "Flour",
-                amount: 200,
+                name: "Gạo nếp",
+                amount: 500,
                 unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flour_%28wheat%29.jpg/800px-Flour_%28wheat%29.jpg",
-                alternatives: []
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Rice_sticky.jpg/640px-Rice_sticky.jpg",
+                alternatives: [],
             },
             {
-                name: "Sugar",
-                amount: 150,
-                unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/1/1f/Sugar.jpg",
-                alternatives: []
-            },
-            {
-                name: "Butter",
+                name: "Gấc",
                 amount: 100,
                 unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Butter.jpg/800px-Butter.jpg",
-                alternatives: []
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Gac_fruit.jpg/640px-Gac_fruit.jpg",
+                alternatives: [],
             },
             {
-                name: "Egg",
-                amount: 3,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Egg.jpg",
-                alternatives: []
-            }
+                name: "Đường",
+                amount: 50,
+                unit: "g",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Sugar_cubes.jpg/640px-Sugar_cubes.jpg",
+                alternatives: [],
+            },
         ],
         instructions: [
             {
                 step: 1,
-                text: "Preheat oven to 180°C.",
-                timeMinutes: "10",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/9/9e/Oven_preheat.jpg"
+                text: "Ngâm gạo nếp trong nước khoảng 2 tiếng cho mềm.",
+                timeMinutes: "120",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Rice_sticky.jpg/640px-Rice_sticky.jpg",
             },
             {
                 step: 2,
-                text: "Mix carrots, flour, sugar, butter, and eggs.",
-                timeMinutes: "20",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/42/Mixing_batter.jpg"
+                text: "Hấp gạo nếp cùng với gấc cho đến khi cháo sánh mịn, khoảng 30 phút.",
+                timeMinutes: "30",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Xoi_gac.jpg/640px-Xoi_gac.jpg",
             },
             {
                 step: 3,
-                text: "Bake for 30 minutes until a toothpick comes out clean.",
-                timeMinutes: "30",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/8/84/Baking_cake.jpg"
-            }
-        ],
-        tags: ["dessert", "cake"],
-        ratings: { rate: 4.8, count: 30 }
-    },
-    {
-        name: "Egg Omelette",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Omelette.jpg",
-        energy: 300,
-        energyUnit: "cal",
-        time: 15,
-        timeUnit: "mins",
-        description: "Simple and fluffy egg omelette.",
-        ingredients: [
-            {
-                name: "Egg",
-                amount: 3,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Egg.jpg",
-                alternatives: []
-            },
-            {
-                name: "Milk",
-                amount: 50,
-                unit: "ml",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Milk_glass.jpg",
-                alternatives: []
-            },
-            {
-                name: "Salt",
-                amount: 0.5,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/48/Salt_crystals.jpg",
-                alternatives: []
-            }
-        ],
-        instructions: [
-            {
-                step: 1,
-                text: "Beat eggs with milk and salt.",
-                timeMinutes: "5",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/5/55/Beaten_eggs.jpg"
-            },
-            {
-                step: 2,
-                text: "Pour mixture into a heated pan and cook until set.",
+                text: "Trộn đường vào và khuấy đều, sau đó thưởng thức khi còn ấm.",
                 timeMinutes: "10",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/28/Cooking_omelette.jpg"
-            }
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Xoi_gac.jpg/640px-Xoi_gac.jpg",
+            },
         ],
-        tags: ["breakfast", "quick"],
-        ratings: { rate: 4.4, count: 22 }
+        tags: ["xôi gấc", "Tết", "may mắn"],
+        ratings: {
+            rate: 4.8,
+            count: 130,
+        },
     },
     {
-        name: "Pancakes",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/23/Blueberry_pancakes_%283%29.jpg",
-        energy: 350,
-        energyUnit: "cal",
-        time: 20,
-        timeUnit: "mins",
-        description: "Fluffy pancakes perfect for breakfast.",
-        ingredients: [
-            {
-                name: "Flour",
-                amount: 150,
-                unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flour_%28wheat%29.jpg/800px-Flour_%28wheat%29.jpg",
-                alternatives: []
-            },
-            {
-                name: "Milk",
-                amount: 200,
-                unit: "ml",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Milk_glass.jpg",
-                alternatives: []
-            },
-            {
-                name: "Egg",
-                amount: 2,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Egg.jpg",
-                alternatives: []
-            },
-            {
-                name: "Sugar",
-                amount: 30,
-                unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/1/1f/Sugar.jpg",
-                alternatives: []
-            },
-            {
-                name: "Butter",
-                amount: 30,
-                unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Butter.jpg/800px-Butter.jpg",
-                alternatives: []
-            }
-        ],
-        instructions: [
-            {
-                step: 1,
-                text: "Mix flour, milk, eggs, sugar, and melted butter.",
-                timeMinutes: "10",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/0/0a/Mixing_pancake_batter.jpg"
-            },
-            {
-                step: 2,
-                text: "Cook pancakes on a hot griddle until golden brown on both sides.",
-                timeMinutes: "10",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Cooking_pancakes.jpg"
-            }
-        ],
-        tags: ["breakfast", "sweet"],
-        ratings: { rate: 4.5, count: 28 }
-    },
-    {
-        name: "Butter Cookies",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Butter_cookies.jpg",
-        energy: 400,
-        energyUnit: "cal",
-        time: 25,
-        timeUnit: "mins",
-        description: "Crispy and buttery cookies.",
-        ingredients: [
-            {
-                name: "Flour",
-                amount: 200,
-                unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flour_%28wheat%29.jpg/800px-Flour_%28wheat%29.jpg",
-                alternatives: []
-            },
-            {
-                name: "Sugar",
-                amount: 100,
-                unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/1/1f/Sugar.jpg",
-                alternatives: []
-            },
-            {
-                name: "Butter",
-                amount: 100,
-                unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Butter.jpg/800px-Butter.jpg",
-                alternatives: []
-            },
-            {
-                name: "Egg",
-                amount: 1,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Egg.jpg",
-                alternatives: []
-            }
-        ],
-        instructions: [
-            {
-                step: 1,
-                text: "Mix flour, sugar, butter, and egg to form a dough.",
-                timeMinutes: "10",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Preparing_cookie_dough.jpg"
-            },
-            {
-                step: 2,
-                text: "Shape dough into cookies and bake at 180°C for 15 minutes.",
-                timeMinutes: "15",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Baking_cookies.jpg"
-            }
-        ],
-        tags: ["dessert", "snack"],
-        ratings: { rate: 4.5, count: 16 }
-    },
-    {
-        name: "Spicy Chili",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/6/6b/Chili.jpg",
-        energy: 550,
-        energyUnit: "cal",
-        time: 45,
-        timeUnit: "mins",
-        description: "Hearty spicy chili with beans and ground meat.",
-        ingredients: [
-            {
-                name: "Chili",
-                amount: 2,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/1/1d/Chili_peppers.jpg",
-                alternatives: []
-            },
-            {
-                name: "Onion",
-                amount: 1,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Onion.jpg",
-                alternatives: []
-            },
-            {
-                name: "Garlic",
-                amount: 2,
-                unit: "cloves",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/44/Garlic_bulb.jpg",
-                alternatives: []
-            },
-            {
-                name: "Salt",
-                amount: 1,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/48/Salt_crystals.jpg",
-                alternatives: []
-            },
-            {
-                name: "Pepper",
-                amount: 0.5,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/21/Black_peppercorns.jpg",
-                alternatives: []
-            }
-        ],
-        instructions: [
-            {
-                step: 1,
-                text: "Sauté onions, garlic, and chili in a pot.",
-                timeMinutes: "10",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/45/Sauteing_chili.jpg"
-            },
-            {
-                step: 2,
-                text: "Add other ingredients and simmer for 30 minutes.",
-                timeMinutes: "30",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Chili_simmer.jpg"
-            }
-        ],
-        tags: ["spicy", "hearty"],
-        ratings: { rate: 4.5, count: 18 }
-    },
-    {
-        name: "Ginger Tea",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/3/37/Ginger_tea.jpg",
-        energy: 100,
-        energyUnit: "cal",
-        time: 10,
-        timeUnit: "mins",
-        description: "Refreshing ginger tea perfect for cold days.",
-        ingredients: [
-            {
-                name: "Ginger",
-                amount: 1,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Ginger.jpg",
-                alternatives: []
-            },
-            {
-                name: "Honey",
-                amount: 1,
-                unit: "tbsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Honey.jpg",
-                alternatives: []
-            },
-            {
-                name: "Lemon",
-                amount: 1,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Lemon.jpg",
-                alternatives: []
-            }
-        ],
-        instructions: [
-            {
-                step: 1,
-                text: "Boil water and add sliced ginger.",
-                timeMinutes: "5",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/29/Boiling_water.jpg"
-            },
-            {
-                step: 2,
-                text: "Steep for 5 minutes, then add honey and lemon.",
-                timeMinutes: "5",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/3/39/Steeping_tea.jpg"
-            }
-        ],
-        tags: ["beverage", "healthy"],
-        ratings: { rate: 4.3, count: 16 }
-    },
-    {
-        name: "Oregano Chicken",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/40/Chicken_with_oregano.jpg",
-        energy: 600,
-        energyUnit: "cal",
-        time: 50,
-        timeUnit: "mins",
-        description: "Roasted chicken with a hint of oregano.",
-        ingredients: [
-            {
-                name: "Chicken",
-                amount: 1,
-                unit: "whole",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/5/55/Whole_chicken.jpg",
-                alternatives: []
-            },
-            {
-                name: "Oregano",
-                amount: 5,
-                unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Oregano.jpg",
-                alternatives: []
-            },
-            {
-                name: "Garlic",
-                amount: 3,
-                unit: "cloves",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/44/Garlic_bulb.jpg",
-                alternatives: []
-            },
-            {
-                name: "Salt",
-                amount: 1,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/48/Salt_crystals.jpg",
-                alternatives: []
-            }
-        ],
-        instructions: [
-            {
-                step: 1,
-                text: "Marinate chicken with oregano, garlic, and salt.",
-                timeMinutes: "20",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Marinating_chicken.jpg"
-            },
-            {
-                step: 2,
-                text: "Roast the chicken in the oven at 200°C for 30 minutes.",
-                timeMinutes: "30",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/6/67/Roasting_chicken.jpg"
-            }
-        ],
-        tags: ["chicken", "roasted"],
-        ratings: { rate: 4.7, count: 22 }
-    },
-    {
-        name: "Parsley Pesto",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/1/10/Parsley_pesto.jpg",
-        energy: 350,
-        energyUnit: "cal",
-        time: 20,
-        timeUnit: "mins",
-        description: "A twist on the classic pesto using fresh parsley.",
-        ingredients: [
-            {
-                name: "Parsley",
-                amount: 1,
-                unit: "bunch",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/8/87/Basil_plant.jpg",
-                alternatives: []
-            },
-            {
-                name: "Olive Oil",
-                amount: 3,
-                unit: "tbsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Olive_oil.jpg/800px-Olive_oil.jpg",
-                alternatives: []
-            },
-            {
-                name: "Salt",
-                amount: 1,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/48/Salt_crystals.jpg",
-                alternatives: []
-            },
-            {
-                name: "Pepper",
-                amount: 0.5,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/21/Black_peppercorns.jpg",
-                alternatives: []
-            }
-        ],
-        instructions: [
-            {
-                step: 1,
-                text: "Blend parsley, olive oil, salt, and pepper until smooth.",
-                timeMinutes: "10",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Blending_pesto.jpg"
-            }
-        ],
-        tags: ["sauce", "vegan"],
-        ratings: { rate: 4.5, count: 18 }
-    },
-    {
-        name: "Cumin Rice",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Cumin_rice.jpg",
-        energy: 400,
-        energyUnit: "cal",
-        time: 30,
-        timeUnit: "mins",
-        description: "Fragrant rice cooked with cumin and spices.",
-        ingredients: [
-            {
-                name: "Cumin",
-                amount: 2,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Cumin_seeds.jpg/800px-Cumin_seeds.jpg",
-                alternatives: []
-            },
-            {
-                name: "Rice",
-                amount: 200,
-                unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Rice_bowl.jpg",
-                alternatives: []
-            },
-            {
-                name: "Salt",
-                amount: 1,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/48/Salt_crystals.jpg",
-                alternatives: []
-            }
-        ],
-        instructions: [
-            {
-                step: 1,
-                text: "Rinse the rice thoroughly.",
-                timeMinutes: "5",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Rinsing_rice.jpg"
-            },
-            {
-                step: 2,
-                text: "Cook rice with cumin, salt, and water until done.",
-                timeMinutes: "25",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/9/98/Cooking_rice.jpg"
-            }
-        ],
-        tags: ["side dish", "rice"],
-        ratings: { rate: 4.3, count: 14 }
-    },
-    {
-        name: "Sugar Cookies",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/8/88/Sugar_cookies.jpg",
-        energy: 420,
-        energyUnit: "cal",
-        time: 30,
-        timeUnit: "mins",
-        description: "Sweet and crunchy sugar cookies.",
-        ingredients: [
-            {
-                name: "Flour",
-                amount: 250,
-                unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flour_%28wheat%29.jpg/800px-Flour_%28wheat%29.jpg",
-                alternatives: []
-            },
-            {
-                name: "Sugar",
-                amount: 150,
-                unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/1/1f/Sugar.jpg",
-                alternatives: []
-            },
-            {
-                name: "Butter",
-                amount: 100,
-                unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Butter.jpg/800px-Butter.jpg",
-                alternatives: []
-            },
-            {
-                name: "Egg",
-                amount: 1,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Egg.jpg",
-                alternatives: []
-            }
-        ],
-        instructions: [
-            {
-                step: 1,
-                text: "Mix flour, sugar, butter, and egg to form a dough.",
-                timeMinutes: "10",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Preparing_cookie_dough.jpg"
-            },
-            {
-                step: 2,
-                text: "Shape dough into cookies and bake at 180°C for 15 minutes.",
-                timeMinutes: "15",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Baking_cookies.jpg"
-            }
-        ],
-        tags: ["dessert", "snack"],
-        ratings: { rate: 4.5, count: 16 }
-    },
-    {
-        name: "Olive Oil Cake",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Olive_oil_cake.jpg",
+        name: "Bánh tét xanh truyền thống",
+        imgUrl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Banh_tet.jpg/640px-Banh_tet.jpg",
         energy: 500,
         energyUnit: "cal",
-        time: 60,
+        time: 180,
         timeUnit: "mins",
-        description: "Moist cake made with olive oil.",
+        quantity: 1,
+        type: "Món chính",
+        author: "Master Chef",
+        description:
+            "Bánh tét xanh truyền thống với lớp vỏ mềm, nhân đậu xanh và thịt heo, là món ăn chính của mùa Tết được nhiều gia đình nông dân ưa chuộng.",
         ingredients: [
             {
-                name: "Flour",
-                amount: 300,
+                name: "Bột gạo nếp",
+                amount: 400,
                 unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flour_%28wheat%29.jpg/800px-Flour_%28wheat%29.jpg",
-                alternatives: []
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Rice_sticky.jpg/640px-Rice_sticky.jpg",
+                alternatives: [],
             },
             {
-                name: "Olive Oil",
-                amount: 100,
-                unit: "ml",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Olive_oil.jpg/800px-Olive_oil.jpg",
-                alternatives: []
-            },
-            {
-                name: "Sugar",
+                name: "Đậu xanh",
                 amount: 150,
                 unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/1/1f/Sugar.jpg",
-                alternatives: []
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Mung_bean.jpg/640px-Mung_bean.jpg",
+                alternatives: [],
             },
             {
-                name: "Egg",
-                amount: 3,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Egg.jpg",
-                alternatives: []
-            }
-        ],
-        instructions: [
-            {
-                step: 1,
-                text: "Mix all ingredients until smooth.",
-                timeMinutes: "20",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Mixing_cake_batter.jpg"
-            },
-            {
-                step: 2,
-                text: "Bake at 180°C for 40 minutes.",
-                timeMinutes: "40",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/8/89/Baking_cake_in_oven.jpg"
-            }
-        ],
-        tags: ["dessert", "cake"],
-        ratings: { rate: 4.4, count: 14 }
-    },
-    {
-        name: "Vinegar Dressing Salad",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Salad_with_vinegar.jpg",
-        energy: 180,
-        energyUnit: "cal",
-        time: 15,
-        timeUnit: "mins",
-        description: "Light salad dressed with vinegar.",
-        ingredients: [
-            {
-                name: "Vinegar",
-                amount: 2,
-                unit: "tbsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Vinegar.jpg/800px-Vinegar.jpg",
-                alternatives: []
-            },
-            {
-                name: "Olive Oil",
-                amount: 3,
-                unit: "tbsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Olive_oil.jpg/800px-Olive_oil.jpg",
-                alternatives: []
-            },
-            {
-                name: "Salt",
-                amount: 0.5,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/48/Salt_crystals.jpg",
-                alternatives: []
-            },
-            {
-                name: "Pepper",
-                amount: 0.5,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/21/Black_peppercorns.jpg",
-                alternatives: []
-            }
-        ],
-        instructions: [
-            {
-                step: 1,
-                text: "Whisk together vinegar, olive oil, salt, and pepper.",
-                timeMinutes: "5",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/6/63/Mixing_dressing.jpg"
-            }
-        ],
-        tags: ["salad", "dressing"],
-        ratings: { rate: 4.2, count: 12 }
-    },
-    {
-        name: "Mixed Vegetable Stew",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/27/Vegetable_stew.jpg",
-        energy: 500,
-        energyUnit: "cal",
-        time: 60,
-        timeUnit: "mins",
-        description: "Hearty stew loaded with a mix of vegetables.",
-        ingredients: [
-            {
-                name: "Tomato",
-                amount: 3,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Tomato.png",
-                alternatives: []
-            },
-            {
-                name: "Carrot",
-                amount: 2,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/28/Carrots.jpg",
-                alternatives: []
-            },
-            {
-                name: "Onion",
-                amount: 1,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Onion.jpg",
-                alternatives: []
-            },
-            {
-                name: "Garlic",
-                amount: 2,
-                unit: "cloves",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/44/Garlic_bulb.jpg",
-                alternatives: []
-            },
-            {
-                name: "Salt",
-                amount: 1,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/48/Salt_crystals.jpg",
-                alternatives: []
-            }
-        ],
-        instructions: [
-            {
-                step: 1,
-                text: "Chop all vegetables.",
-                timeMinutes: "10",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/0/05/Chopped_vegetables.jpg"
-            },
-            {
-                step: 2,
-                text: "Simmer vegetables in a pot with water and seasoning for 50 minutes.",
-                timeMinutes: "50",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/1/14/Vegetable_stew_in_pot.jpg"
-            }
-        ],
-        tags: ["stew", "vegetarian", "healthy"],
-        ratings: { rate: 4.4, count: 16 }
-    },
-    {
-        name: "Cheesy Pasta",
-        imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Cheese_pasta.jpg/800px-Cheese_pasta.jpg",
-        energy: 550,
-        energyUnit: "cal",
-        time: 30,
-        timeUnit: "mins",
-        description: "Creamy pasta with melted cheese.",
-        ingredients: [
-            {
-                name: "Milk",
-                amount: 100,
-                unit: "ml",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Milk_glass.jpg",
-                alternatives: []
-            },
-            {
-                name: "Butter",
-                amount: 50,
+                name: "Thịt heo",
+                amount: 200,
                 unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Butter.jpg/800px-Butter.jpg",
-                alternatives: []
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Pork.jpg/640px-Pork.jpg",
+                alternatives: [],
             },
-            {
-                name: "Flour",
-                amount: 150,
-                unit: "g",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flour_%28wheat%29.jpg/800px-Flour_%28wheat%29.jpg",
-                alternatives: []
-            },
-            {
-                name: "Egg",
-                amount: 1,
-                unit: "pcs",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Egg.jpg",
-                alternatives: []
-            },
-            {
-                name: "Salt",
-                amount: 0.5,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/48/Salt_crystals.jpg",
-                alternatives: []
-            },
-            {
-                name: "Pepper",
-                amount: 0.25,
-                unit: "tsp",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/2/21/Black_peppercorns.jpg",
-                alternatives: []
-            }
         ],
         instructions: [
             {
                 step: 1,
-                text: "Boil pasta until al dente.",
-                timeMinutes: "10",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Boiling_pasta.jpg"
+                text: "Ngâm gạo nếp qua đêm và xay nhuyễn để làm bột bánh.",
+                timeMinutes: "60",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Rice_sticky.jpg/640px-Rice_sticky.jpg",
             },
             {
                 step: 2,
-                text: "Prepare a cheese sauce with milk, butter, flour, salt, and pepper.",
-                timeMinutes: "10",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4d/Cheese_sauce.jpg"
+                text: "Trộn đậu xanh đã nấu chín với thịt heo, sau đó gói nhân vào lớp bột bánh và cuốn trong lá dong.",
+                timeMinutes: "60",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Banh_tet.jpg/640px-Banh_tet.jpg",
             },
             {
                 step: 3,
-                text: "Mix pasta with the cheese sauce and serve.",
-                timeMinutes: "10",
-                imgUrl: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Serving_cheesy_pasta.jpg"
-            }
+                text: "Hấp bánh tét trong 3-4 tiếng cho đến khi nhân chín và lớp bánh mềm.",
+                timeMinutes: "180",
+                imgUrl:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Banh_tet.jpg/640px-Banh_tet.jpg",
+            },
         ],
-        tags: ["pasta", "cheesy"],
-        ratings: { rate: 4.6, count: 20 }
-    }
+        tags: ["bánh tét", "Tết", "truyền thống"],
+        ratings: {
+            rate: 4.7,
+            count: 100,
+        },
+    },
+
 ];
 
 async function seedRecipes() {

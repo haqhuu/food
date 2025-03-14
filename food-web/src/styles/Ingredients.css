@@ -5,11 +5,13 @@
 
 .list-ing-header {
     justify-content: space-between;
+    padding-right: 25%;
 }
 
 .list-ing-search-section {
     align-items: left;
     border-bottom: 1px solid silver;
+    padding-bottom: 1rem;
 }
 
 /* /////////////////////////////////////////////////// */
@@ -22,7 +24,7 @@
 
 .suggest-item {
     /* padding: 0.5em; */
-    width: 100%;
+    /* width: 100%; */
     position: relative;
     cursor: pointer;
     background: #eeeeee;
@@ -39,8 +41,12 @@
     background: #dfdfdf;
 }
 
+.suggest-container li {
+    padding: .5rem;
+}
+
 .suggest-container {
-    width: 100%;
+    width: auto !important;
     font-weight: 600;
     position: absolute;
     /* padding: 0 2rem 0 2rem; */
@@ -56,5 +62,71 @@
 .list-ing-search-section input {}
 
 .list-ing-main {
-    /* position: relative; */
+    width: 50%;
+    margin: 0 auto;
+    list-style: none;
+    padding: 0.5rem 0 0.5rem 0;
+    min-height: 500px;
+}
+
+.list-ing-main li {
+    position: relative;
+    list-style: none;
+    padding: 0.5rem 0 0.5rem 0;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin-bottom: .5rem;
+    ;
+    /* justify-content: space-between; */
+}
+
+.list-ing-main li .name {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translate(-10%, -50%);
+    font-size: 1rem;
+}
+
+.list-ing-main li:hover {
+    background: #dfdfdf;
+    cursor: pointer;
+}
+
+.list-ing-main li .edit {
+    position: absolute;
+    top: 50%;
+    right: 15%;
+    transform: translate(-10%, -50%);
+}
+
+
+.list-ing-main li .delete {
+    position: absolute;
+    top: 50%;
+    right: 3%;
+    transform: translate(-10%, -50%);
+    /* z-index: 100; */
+}
+
+.list-ing-main li:hover button:hover {
+    background-color: orange;
+    /* Màu nền riêng của button khi hover */
+
+}
+
+.input-s-container {
+    gap: 1rem;
+    align-items: center;
+}
+
+.gr {
+    background: rgb(243, 243, 243);
+}
+
+.bound {
+    border: 1px solid rgb(243, 243, 243);
+    background: white;
+    border-radius: 7px;
+    height: 100vh;
 }

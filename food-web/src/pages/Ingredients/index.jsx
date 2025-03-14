@@ -61,6 +61,11 @@ const Index = () => {
     }
 
     useEffect(() => {
+        setCurrentPage(1);
+    }, []);
+
+
+    useEffect(() => {
         getListIngredient();
     }, [currentPage]);
 
@@ -75,14 +80,13 @@ const Index = () => {
         setOpenPopupDelete(true);
     }
     const handleOnClickItem = (item) => {
-        // e.stopPropagation()
         setSelectItem(item);
         setOpenPopupDetail(true);
     }
 
     const seachSuggest = async () => {
         try {
-            console.log("----ing queryp: ", searchIngName);
+            // console.log("----ing queryp: ", searchIngName);
             if (searchIngName) {
                 const response = await axios.get("/ingredients",
                     {
@@ -90,7 +94,7 @@ const Index = () => {
                             query: searchIngName
                         }
                     });
-                console.log("ing iidata:: ", response);
+                // console.log("ing iidata:: ", response);
                 setSuggestions(response);
             } else {
                 setSuggestions([]);
@@ -101,32 +105,83 @@ const Index = () => {
         }
     }
 
-    useEffect(() => {
-        if (searchIngName) {
-            seachSuggest();
+    const onChangeSearch = async () => {
+        await seachSuggest();
+        setCurrentPage(1);
+        try {
+            const response = await axios.post("/ingredients/search", {
+                params: {
+                    searchIngName: searchIngName,
+                    page: 1,
+                    pageSize: limitIngLength
+                }
+            });
+            setListIngredient(response.ingredients);
+            setTotalRecord(response.total);
+            setTotalPages(response.totalPages);
+            console.log("---> ress: ", response);
+        } catch (e) {
+            console.log(e);
         }
-        else {
-            setSuggestions([]);
+
+    }
+
+    const currentSearch = async () => {
+        try {
+            const response = await axios.post("/ingredients/search", {
+                params: {
+                    searchIngName: searchIngName,
+                    page: currentPage,
+                    pageSize: limitIngLength
+                }
+            });
+            setListIngredient(response.ingredients);
+            setTotalRecord(response.total);
+            setTotalPages(response.totalPages);
+            // console.log("---> ress: ", response);
+        } catch (e) {
+            console.log(e);
         }
-    }, [searchIngName]);
+    }
 
     const handleOnClickSuggestItem = (index, item) => {
-        console.log("itemsdd", item);
+        // console.log("itemsdd", item);
         setSearchIngName(item.name);
         setSuggestActive(false);
     }
 
+    useEffect(() => {
+        if (searchIngName) {
+            onChangeSearch();
+        } else {
+            setSuggestions([]);
+            getListIngredient();
+        }
+    }, [searchIngName]);
+
+    useEffect(() => {
+        currentSearch();
+    }, [currentPage, totalRecord]);
+
+    useEffect(() => {
+        currentSearch();
+    }, [isOpenPopup, isOpenPopupDelete, isOpenPopupEdit]);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, []);
+
     return (
         <>
-            <div className="column1 d-flex flex-row gap-1">
+            <div className="column1 d-flex flex-row gap-1 gr">
                 {
                     openSide ?
                         <>
                             <div className="head-section d-flex flex-column col-2  bound">
                                 <Header />
                             </div>
-                            <div className="ingredients-container d-flex flex-col  py-4">
-                                <div className="row d-flex flex-col items-center justify-center align-items-center gap-2">
+                            <div className="ingredients-container d-flex flex-col w-100 bound py-4">
+                                <div className="row d-flex flex-col items-center justify-center align-items-center gap-2 " style={{ margin: "0px" }}>
                                     <div className="list-ing-header d-flex flex-row mb-4">
                                         <h1 className="text-4xl font-bold ">INGREDIENTS</h1>
                                         <button
@@ -135,11 +190,20 @@ const Index = () => {
                                             + 1 Ingredient
                                         </button>
                                     </div>
-                                    <div className="list-ing-search-section d-flex flex-column">
-                                        <input type="text" className="form-control" placeholder="Search for name ingredient"
-                                            value={searchIngName} onChange={(e) => setSearchIngName(e.target.value)}
-                                            onClick={() => setSuggestActive(true)}
-                                        />
+                                    <div className="list-ing-search-section d-flex flex-column gap-2  w-50">
+                                        <div className="input-s-container d-flex flex-row">
+                                            <input type="text" className="form-control" placeholder="Search for name ingredient"
+                                                value={searchIngName} onChange={(e) => setSearchIngName(e.target.value)}
+                                                onClick={() => setSuggestActive(true)}
+                                                onBlur={() => setTimeout(() => setSuggestActive(false), 200)}
+                                            />
+                                            <p>Found: </p>
+                                            <p style={{ fontWeight: 600 }} > {totalRecord}  </p>
+
+                                            <p>
+                                                ingredient(s)
+                                            </p>
+                                        </div>
                                         {
 
                                             <ul className="suggest-container">
@@ -153,9 +217,8 @@ const Index = () => {
                                                     </li>
                                                 ))}
                                             </ul>
-
                                         }
-                                        <span>This is {totalRecord} ingredient(s)</span>
+
                                     </div>
 
                                     <ul className="list-ing-main backward-layer">
@@ -163,10 +226,10 @@ const Index = () => {
                                             listIngredient && listIngredient.length > 0 &&
                                             listIngredient.map((item, index) => {
                                                 return <li onClick={() => handleOnClickItem(item)}>
-                                                    {index + 1 + item.name}
-                                                    <img style={{ width: "50px" }} src={item.imgUrl} alt={index} />
-                                                    <button className="btn btn-black on-front-layer" onClick={(e) => handleOnClickEdit(item, e)}> Edit</button>
-                                                    <button className="btn btn-danger on-front-layer" onClick={(e) => handleOnClickDelete(item, e)} > Delete</button>
+                                                    <span className="name"> {item.name} </span>
+                                                    <img style={{ height: "50px", width: "50px" }} src={item.imgUrl} alt={index} />
+                                                    <button className="btn edit btn-black" onClick={(e) => handleOnClickEdit(item, e)}> Edit</button>
+                                                    <button className="btn delete btn-danger" onClick={(e) => handleOnClickDelete(item, e)} > Delete</button>
                                                 </li>
                                             })
                                         }
@@ -178,22 +241,92 @@ const Index = () => {
                         </>
                         :
                         <>
-                            <div className="head-section d-flex flex-column   bound">
+                            <div className="head-section d-flex flex-column col-2  bound">
                                 <Header />
                             </div>
-                            <div className="ingredients-container d-flex flex-col items-center justify-center align-items-center py-4">
-                                <div className="row d-flex flex-col items-center justify-center align-items-center gap-2">
-                                    <h1 className="text-4xl font-bold mb-4">INGREDIENTS</h1>
-                                    <input className={ingredientInvalidObject.invalidName ? "form-control" : "form-control"}
-                                        type="text" placeholder="Name ingredient" value={nameIngredient} onChange={(e) => setNameIngredient(e.target.value)} />
-                                    <div className="d-flex flex-row justify-center align-items-center w-50">
-                                        <img style={{ width: "100px", height: "100px" }} src={ingredientImgUrl} alt={ingredientImgUrl} />
-                                    </div>
-                                    <input className={ingredientInvalidObject.invalidImgUrl ? "form-control" : "form-control"}
-                                        type="text" placeholder="Paste link image ingredient" value={ingredientImgUrl} onChange={(e) => setIngredientImgUrl(e.target.value)} />
-                                    <input className={ingredientInvalidObject.invalidUnit ? "form-control" : "form-control"}
-                                        type="text" placeholder="aliases ingredient separate by (,)" value={ingredientAliases} onChange={(e) => setIngredientAliases(e.target.value)} />
+                            <div className="ingredients-container d-flex flex-col  py-4">
+                                <div className="row d-flex flex-col items-center justify-center align-items-center gap-2 " style={{ margin: "0px" }}>
+                                    <div className="list-ing-header d-flex flex-row mb-4">
+                                        <h1 className="text-4xl font-bold ">RECIPES</h1>
+                                        <button
+                                            className='btn btn-secondary'
+                                            onClick={() => setOpenPopup(true)}>
+                                            + 1 Recipe
+                                        </button>
+                                    </div><div className="list-ing-search-section d-flex flex-column gap-2  w-50">
+                                        <div className="input-s-container d-flex flex-row">
+                                            <input type="text" className="form-control" placeholder="Search for name ingredient"
+                                                value={searchIngName} onChange={(e) => setSearchIngName(e.target.value)}
+                                                onClick={() => setSuggestActive(true)}
+                                                onBlur={() => setTimeout(() => setSuggestActive(false), 200)}
+                                            />
+                                            <p>Found: </p>
+                                            <p style={{ fontWeight: 600 }} > {totalRecord}  </p>
 
+                                            <p>
+                                                ingredient(s)
+                                            </p>
+                                        </div>
+                                        {
+
+                                            <ul className="suggest-container">
+                                                {isActive && suggestions && suggestions.map((item, index) => (
+                                                    <li
+                                                        key={index}
+                                                        onClick={() => handleOnClickSuggestItem(index, item)}
+                                                        className="suggest-item form-group">
+                                                        {item.name}
+                                                        <img style={{ width: "35px", height: "35px" }} src={item.imgUrl} alt="" />
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        }
+                                    </div>
+                                    <div className="list-ing-search-section d-flex flex-column gap-2  w-50">
+                                        <div className="input-s-container d-flex flex-row">
+                                            <input type="text" className="form-control" placeholder="Search for name ingredient"
+                                                value={searchIngName} onChange={(e) => setSearchIngName(e.target.value)}
+                                                onClick={() => setSuggestActive(true)}
+                                                onBlur={() => setTimeout(() => setSuggestActive(false), 200)}
+                                            />
+                                            <p>Found: </p>
+                                            <p style={{ fontWeight: 600 }} > {totalRecord}  </p>
+
+                                            <p>
+                                                ingredient(s)
+                                            </p>
+                                        </div>
+                                        {
+
+                                            <ul className="suggest-container">
+                                                {isActive && suggestions && suggestions.map((item, index) => (
+                                                    <li
+                                                        key={index}
+                                                        onClick={() => handleOnClickSuggestItem(index, item)}
+                                                        className="suggest-item form-group">
+                                                        {item.name}
+                                                        <img style={{ width: "35px", height: "35px" }} src={item.imgUrl} alt="" />
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        }
+                                    </div>
+
+                                    <ul className="list-ing-main backward-layer">
+                                        {
+                                            listIngredient && listIngredient.length > 0 &&
+                                            listIngredient.map((item, index) => {
+                                                return <li onClick={() => handleOnClickItem(item)}>
+                                                    <span className="name"> {item.name} </span>
+                                                    <img style={{ height: "50px", width: "50px" }} src={item.imgUrl} alt={index} />
+                                                    <button className="btn edit btn-black" onClick={(e) => handleOnClickEdit(item, e)}> Edit</button>
+                                                    <button className="btn delete btn-danger" onClick={(e) => handleOnClickDelete(item, e)} > Delete</button>
+                                                </li>
+                                            })
+                                        }
+                                    </ul>
+                                    <Pagination />
+                                    <Footer />
                                 </div>
                             </div>
                         </>
@@ -206,9 +339,10 @@ const Index = () => {
                     onClose={setOpenPopupDetail}
                 />
             }
-            {isOpenPopup && <PopupAddIngredient
-                onClose={setOpenPopup}
-            />
+            {
+                isOpenPopup && <PopupAddIngredient
+                    onClose={setOpenPopup}
+                />
             }
 
             {

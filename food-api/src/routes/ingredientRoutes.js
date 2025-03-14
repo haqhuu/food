@@ -5,7 +5,8 @@ import {
     getIngredientSuggests,
     createIngredient,
     updateIngredient,
-    deleteIngredient
+    deleteIngredient,
+    searchByIngredientName
 } from "../controllers/ingredientController.js";
 
 const router = Router();
@@ -18,6 +19,6 @@ router.route("/ingredients")
 router.route("/ingredients/all").get(getIngredients)
 router.route("/ingredients/update").post(updateIngredient);
 router.route("/ingredients/delete").post(deleteIngredient);
-
+router.route("/ingredients/search").post(searchByIngredientName);
 
 export default router;

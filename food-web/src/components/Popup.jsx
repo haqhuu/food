@@ -114,7 +114,7 @@ const Popup = (props) => {
 
 
                     <hr />
-                    <ShareButton />
+                    {/* <ShareButton /> */}
                 </div>
 
             </div>

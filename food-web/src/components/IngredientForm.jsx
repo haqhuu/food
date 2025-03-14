@@ -40,7 +40,7 @@ function IngredientForm({ getAll }) {
     };
 
     const removeBannedIng = (index) => {
-        if (ingredients.length > 1) {
+        if (bannedIngs.length > 1) {
             setBannedIngs(bannedIngs.filter((_, i) => i !== index)); // Remove ingredient
         } else {
             setBannedIngs([""]);
@@ -261,8 +261,8 @@ function IngredientForm({ getAll }) {
     return (
         <>
             <div className="search-container  ">
-                <b className="filter-title">
-                    Filter
+                <b className="filter-title mt-2">
+                    Filter Ingredients
                 </b>
                 <div className="filter-title-container">
                     <b className="title-filter-recipe">In Recipe: {ingredients.length}/{limitIngredients}</b>

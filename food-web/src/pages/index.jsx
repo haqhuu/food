@@ -95,7 +95,7 @@ function Index() {
 
                                     </div>
                                     <div className="last-container col-4 ">
-                                        <SimilarWords />
+                                        {/* <SimilarWords /> */}
                                         <IngredientForm getAll={getAllrecipes} />
                                         <hr />
                                     </div>

@@ -131,7 +131,6 @@ export const searchRecipes = async (req, res) => {
         });
 
         // 2. Tạo trường tạm để đánh dấu công thức thuộc tập B (ingredients)
-        // 2. Tạo trường tạm để đánh dấu công thức thuộc tập B (ingredients) với regex
         pipeline.push({
             $addFields: {
                 inSetB: {
@@ -144,47 +143,48 @@ export const searchRecipes = async (req, res) => {
                         },
                         then: true, // Nếu ingredients null hoặc rỗng, B là toàn bộ công thức
                         else: {
-                            $gt: [
+                            $eq: [
+                                { $size: { $ifNull: [ingredients, []] } }, // Số lượng nguyên liệu cần khớp
                                 {
                                     $size: {
                                         $filter: {
-                                            input: "$ingredients",
-                                            as: "ing",
+                                            input: ingredients,
+                                            as: "ingredient",
                                             cond: {
-                                                $or: [
-                                                    // Kiểm tra ingredients.name với regex
+                                                $gt: [
                                                     {
-                                                        $regexMatch: {
-                                                            input: "$$ing.name",
-                                                            regex: createRegexForVietnamese(ingredients.join("|")) // Tạo regex từ danh sách ingredients
+                                                        $size: {
+                                                            $filter: {
+                                                                input: "$ingredients",
+                                                                as: "ing",
+                                                                cond: {
+                                                                    $or: [
+                                                                        { $eq: ["$$ing.name", "$$ingredient"] },
+                                                                        {
+                                                                            $gt: [
+                                                                                {
+                                                                                    $size: {
+                                                                                        $filter: {
+                                                                                            input: { $ifNull: ["$$ing.alternatives", []] },
+                                                                                            as: "alt",
+                                                                                            cond: { $eq: ["$$alt.name", "$$ingredient"] }
+                                                                                        }
+                                                                                    }
+                                                                                },
+                                                                                0
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
                                                         }
                                                     },
-                                                    // Kiểm tra ingredients.alternatives.name với regex
-                                                    {
-                                                        $gt: [
-                                                            {
-                                                                $size: {
-                                                                    $filter: {
-                                                                        input: "$$ing.alternatives",
-                                                                        as: "alt",
-                                                                        cond: {
-                                                                            $regexMatch: {
-                                                                                input: "$$alt.name",
-                                                                                regex: createRegexForVietnamese(ingredients.join("|"))
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            },
-                                                            0
-                                                        ]
-                                                    }
+                                                    0
                                                 ]
                                             }
                                         }
                                     }
-                                },
-                                0
+                                }
                             ]
                         }
                     }

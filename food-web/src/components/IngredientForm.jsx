@@ -145,16 +145,11 @@ function IngredientForm({ getAll }) {
             page: 1,
             pageSize: pageSize
         };
-        // console.log("search pay::", payload);
         setSearching(true);
-        console.log("search paysssssssssss::", payload);
         const response = await axios.post("/recipes/search", payload);
-        console.log("ress set: ", response);
         setRecipes(response.recipes);
         setTotalRecord(response.totalRecords);
-        // setCurrentPage(response.currentPage);
         setTotalPages(response.totalPages);
-        // console.log("state: ----------------");
     }
 
     const handleOnClickIngInput = async (index, value) => {
@@ -182,7 +177,6 @@ function IngredientForm({ getAll }) {
     };
     const getBannedSuggestions = async (query) => {
         try {
-            // console.log("ing queryp: ", query);
             if (query) {
                 const response = await axios.get("/ingredients",
                     {
@@ -192,7 +186,6 @@ function IngredientForm({ getAll }) {
                     });
                 console.log("banndeg data:: ", response);
                 setBannedSuggestions(response);
-                // console.log("banndeg data:: ", bannedIndex);
             } else {
                 setSuggestions([]);
             }
@@ -216,7 +209,6 @@ function IngredientForm({ getAll }) {
     };
     const clearIngredients = () => {
         setIngredients([""]);
-        // setSearching(false);
     }
     const clearBannedIngs = () => {
         setBannedIngs([""]);
@@ -227,7 +219,6 @@ function IngredientForm({ getAll }) {
     }
     const handleOnClickInput = async (index, value) => {
         if (value) {
-            // updateBannedIngs(index, e.target.value);
             await getBannedSuggestions(value);
             setBannedIndex(index);
         } else {

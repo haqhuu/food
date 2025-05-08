@@ -1,10 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';;
 import axios from "../setup/axios.jsx";
-// import reactLogo from '../assets/react.svg'
-// import viteLogo from '/vite.svg'
 import '../styles/App.css'
 import Menu from "../components/Menu.jsx";
-// import { Link } from "react-router-dom";
 import RecipeCard from "../components/RecipeCard.jsx";
 import Footer from "../components/Footer.jsx";
 import IngredientForm from "../components/IngredientForm.jsx";
@@ -12,9 +9,6 @@ import Pagination from '../components/Pagination.jsx';
 import Header from '../components/Header.jsx';
 import SearchName from "../components/SearchName.jsx";
 import SimilarWords from "../components/SimilarWords.jsx";
-// import { FormProvider } from '../context/FormContext.jsx';
-// import { RecipesProvider } from '../context/RecipesContext.jsx';
-// import { CloseOpenProvider } from '../context/CloseOpenContext.jsx';
 import { useProvider } from '../context/Provider.jsx';
 import { useLocation } from "react-router-dom";
 
@@ -50,16 +44,6 @@ function Index() {
 
     }, [recipes]);
 
-    // Gọi getAllrecipes khi currentPage thay đổi
-    // useEffect(() => {
-    //     getAllrecipes();
-    // }, [getAllrecipes]);
-
-
-    // useEffect(() => {
-    //     getAllrecipes();
-    // }, [currentPage]);
-
     return (
         <>
             <Menu />
@@ -76,8 +60,6 @@ function Index() {
                                         <SearchName />
                                         {
                                             <div className="recipes-container">
-                                                {/* <span className='count'>
-                                                    {totalRecord} recipe(s)</span> */}
                                                 <div className="cards-container">
                                                     {
                                                         recipes && recipes.length > 0 && recipes.map(it => {
@@ -92,10 +74,8 @@ function Index() {
                                                 <Pagination />
                                             </div>
                                         }
-
                                     </div>
                                     <div className="last-container col-4 ">
-                                        {/* <SimilarWords /> */}
                                         <IngredientForm getAll={getAllrecipes} />
                                         <hr />
                                     </div>
@@ -141,7 +121,6 @@ function Index() {
                         </>
                 }
             </div>
-
         </>
     )
 }
